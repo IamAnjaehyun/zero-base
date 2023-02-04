@@ -34,7 +34,7 @@ public class java04 {
         int ran = random.nextInt(899999) + 100000;
 
         System.out.printf("%02d%02d%02d-%d%d", year, month, day, sex, ran);
-
+        sc.close();
 
     }
 }

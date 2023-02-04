@@ -91,5 +91,6 @@ public class java07 {
             System.out.print(" => " +getLottoCount(lo, comLotto)+"개 일치");
             System.out.println();
         }
+        sc.close();
     }
 }

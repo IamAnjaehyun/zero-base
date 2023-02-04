@@ -27,5 +27,6 @@ public class java02 {
         }
 
         System.out.printf("결제 금액은 %d원이고, 캐시백은 %d원 입니다.", money, point);
+        sc.close();
     }
 }

@@ -39,6 +39,7 @@ public class java03 {
             pay = 10000;
         }
         System.out.println("입장료: " + pay);
+        sc.close();
     }
 }
 
