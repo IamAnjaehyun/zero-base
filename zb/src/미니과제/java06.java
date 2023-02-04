@@ -13,7 +13,7 @@ import java.util.Scanner;
     임의번호는 Random함수의 nextInt()함수를 통해서 생성
  */
 public class java06 {
-    public static void solution(String[] name, int[] vote){
+    public static String solution(String[] name, int[] vote){
         Random random = new Random();
 
         int max = 10000;
@@ -30,13 +30,6 @@ public class java06 {
             System.out.printf("[기호:4] 안철수: %.2f%%, (투표수: %d)\n", (double) vote[3] / max * 100, vote[3]);
             System.out.println();
         }
-    }
-
-    public static void main(String[] args) {
-        String[] name = {"이재명", "윤석열", "심상정", "안철수"};
-        int[] vote = {0, 0, 0, 0};
-
-        solution(name,vote);
 
         int maxVote = Integer.MIN_VALUE;
         String winner = "";
@@ -46,9 +39,20 @@ public class java06 {
                 winner = name[i];
             } else if (maxVote == vote[i]) {
                 System.out.println("==당선자 동율 발생==");
+                //배열 초기화
+                name = new String[]{"이재명", "윤석열", "심상정", "안철수"};
+                vote = new int[]{0, 0, 0, 0};
+                //재투표
                 solution(name,vote);
             }
         }
-        System.out.println("[투표결과] 당선인: " + winner);
+        return winner;
+    }
+
+    public static void main(String[] args) {
+        String[] name = {"이재명", "윤석열", "심상정", "안철수"};
+        int[] vote = {0, 0, 0, 0};
+
+        System.out.println("[투표결과] 당선인: " + solution(name,vote));
     }
 }
