@@ -33,7 +33,7 @@ public class java08 {
     static int[] rate = {0, 6, 15, 24, 35, 38, 40, 42, 45};
 
     //세율에 의한 세금
-    public static long taxRate(Long money) {
+    public static long researchTaxRate(Long money) {
         for (int i = 1; i < taxBase.length; i++) {
             // 작은 금액부터 확인해서 마지막에 여기로 도달
             if (money <= taxBase[i]) {
@@ -53,7 +53,7 @@ public class java08 {
     }
 
     // 누진공제 계산에 의한 세금
-    public static long progressiveTax(Long money) {
+    public static long researchProgressiveTax(Long money) {
         for (int i = 1; i < taxBase.length; i++) {
             // 번돈 <= 세금 기준액
             if (money <= taxBase[i]) {
@@ -72,10 +72,10 @@ public class java08 {
         long money = sc.nextLong();
 
 
-        System.out.printf("[세율에 의한 세금]:\t\t\t %8d\n", taxRate(money));
+        System.out.printf("[세율에 의한 세금]:\t\t\t %8d\n", researchTaxRate(money));
         //연소득 1200만원 안넘으면 계산안해도됨
         if (money > 12000000) {
-            progressiveTax = progressiveTax(money);
+            progressiveTax = researchProgressiveTax(money);
         }
         System.out.printf("[누진공제 계산에 의한 세금]:\t %8d\n", progressiveTax);
 
