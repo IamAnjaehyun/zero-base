@@ -10,6 +10,7 @@ import java.util.Scanner;
     주어진 종합소득세율표를 통한 조건 생성
  */
 
+<<<<<<< Updated upstream
 /**
  * 12,000,000원 이하 6%
  * 46,000,000원 이하 15%
@@ -64,6 +65,53 @@ public class java08 {
         return progressiveTax;
     }
 
+=======
+
+public class java08 {
+    public static void solution(Long money) {
+        /**
+         * 12,000,000원 이하 6%
+         * 46,000,000원 이하 15%
+         * 88,000,000원 이하 24%
+         * 150,000,000원 이하 35%
+         * 300,000,000원 이하 38%
+         * 500,000,000원 이하 40%
+         * 1000,000,000원 이하 42%
+         * 1000,000,000원 초과 45%
+         */
+        // 세율에 의한 세금
+        long[] taxBase = {0, 12000000L, 46000000L, 88000000L, 150000000L, 300000000L, 500000000L, 1000000000L, Long.MAX_VALUE};
+        float[] rate = {0, 0.06f, 0.15f, 0.24f, 0.35f, 0.38f, 0.40f, 0.42f, 0.45f};
+        int taxByRate = 0;
+        float progressiveTax = 0;
+
+        for (int i = 1; i < taxBase.length; i++) {
+            if (money <= taxBase[i]) {// 번돈 <= 세금 기준액
+                long before = money - taxBase[i - 1]; // 이전 금액기준 낸돈 빼야됨
+                float now = before * rate[i];
+                System.out.printf("%10d  *  %2d%% = %10d\n\n", before, (int)(rate[i]*100), (int)now);
+                taxByRate += now;
+                break;
+            } else {
+                float now = rate[i] * (taxBase[i] - taxBase[i - 1]);
+                System.out.printf("%10d  *  %2d%% = %10d\n", taxBase[i] - taxBase[i - 1], (int)(rate[i]*100), (int)now);
+                taxByRate += now;
+            }
+        }
+        System.out.println("[세율에 의한 세금]:\t\t\t" + taxByRate);
+
+
+        // 누진공제 계산에 의한 세금
+        long[] progressiveDeduction = {0, 0, 1080000, 5220000, 14900000, 19400000, 25400000, 35400000, 65400000};
+        for (int i = 1; i < taxBase.length; i++) {
+            if (money <= taxBase[i]) {// 번돈 <= 세금 기준액
+                progressiveTax = (money * rate[i]) - progressiveDeduction[i];
+                break;
+            }
+        }
+        System.out.println("[누진공제 계산에 의한 세금]:\t" + (int)progressiveTax);
+    }
+>>>>>>> Stashed changes
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -71,6 +119,7 @@ public class java08 {
         System.out.print("연소득을 입력해 주세요.:");
         long money = sc.nextLong();
 
+<<<<<<< Updated upstream
 
         System.out.printf("[세율에 의한 세금]:\t\t\t %8d\n", researchTaxRate(money));
         //연소득 1200만원 안넘으면 계산안해도됨
@@ -79,7 +128,14 @@ public class java08 {
         }
         System.out.printf("[누진공제 계산에 의한 세금]:\t %8d\n", progressiveTax);
 
+=======
+        solution(money);
+>>>>>>> Stashed changes
         sc.close();
     }
 }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
