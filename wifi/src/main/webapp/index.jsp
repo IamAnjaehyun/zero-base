@@ -17,7 +17,7 @@
 <%--    아직 index.jsp--%>
 <a href="index.jsp">홈</a> |
 <a href="index.jsp">위치 히스토리 목록</a> |
-<a href="index.jsp">Open API 와이파이 정보 가져오기</a>
+<a href="save.jsp">Open API 와이파이 정보 가져오기</a>
 </br>
 
 <div class="divbox">
@@ -39,7 +39,6 @@
 
                     document.getElementById("lat").value = latitude;
                     document.getElementById("lnt").value = longitude;
-
                 }
             )
         } else {
@@ -82,29 +81,29 @@
 <tr>
 <%--    여기부분에 리스트가 펼쳐져야함 .. ?   --%>
     내 위치 가져오기 wifi 20개 가져와서 뿌리는 곳 -> 이게 바껴야됨
-    <%--        <%--%>
-    <%--    for (와이파이 정보 20개 가져오기) {--%>
-    <%--    ㅇ.write("<tr>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getDistance() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getManageNum() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getRegion() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getWifiName() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getRoadAddress() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getDetailedAddress() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getFloor() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getInstallationType() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getOrganization() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getClassifiedService() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getNetworkType() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getYearOfInstall() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getInOrOut() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getConnEnvironment() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getLAT() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getLNT() + "</td>");--%>
-    <%--        ㅇ.write("<td>" + responseWifi.getWorkTime() + "</td>");--%>
-    <%--        ㅇ.write("</tr>");--%>
-    <%--    }--%>
-    <%--        %>--%>
+<%--    <%--%>
+<%--        for (와이파이 정보 20개 가져오기) {--%>
+<%--        out.write("<tr>");--%>
+<%--        out.write("<td>" + responseWifi.getDistance() + "</td>");--%>
+<%--        out.write("<td>" + responseWifi.getManageNum() + "</td>");--%>
+<%--        out.write("<td>" + responseWifi.getRegion() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getWifiName() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getRoadAddress() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getDetailedAddress() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getFloor() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getInstallationType() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getOrganization() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getClassifiedService() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getNetworkType() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getYearOfInstall() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getInOrOut() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getConnEnvironment() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getLAT() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getLNT() + "</td>");--%>
+<%--            ㅇ.write("<td>" + responseWifi.getWorkTime() + "</td>");--%>
+<%--            ㅇ.write("</tr>");--%>
+<%--        }--%>
+<%--    %>--%>
 
 </tr>
 </body>

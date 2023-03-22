@@ -11,8 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1><%= "와이파이 정보 구하기" %>
-</h1>
+<h1><%= "와이파이 정보 구하기" %></h1>
 </br>
 <%--    아직 index.jsp--%>
 <a href="index.jsp">홈</a> |
