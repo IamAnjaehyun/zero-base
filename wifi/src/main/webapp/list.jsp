@@ -14,12 +14,12 @@
 </head>
 
 <body>
-<h1><%= "와이파이 정보 구하기" %>
+<%--<h1><%= "와이파이 정보 구하기" %>--%>
 </h1>
 </br>
 <%--    아직 index.jsp--%>
 <a href="index.jsp">홈</a> |
-<a href="list.jsp">위치 히스토리 목록</a> |
+<a href="index.jsp">위치 히스토리 목록</a> |
 <a href="save.jsp">Open API 와이파이 정보 가져오기</a>
 </br>
 
@@ -42,6 +42,9 @@
 
                     document.getElementById("lat").value = latitude;
                     document.getElementById("lnt").value = longitude;
+
+                console.log("lat : " + latitude);
+                console.log("lnt : " + longitude);
                 }
             )
         } else {
@@ -82,8 +85,34 @@
     </thead>
 </table>
 <tr>
-<%--    여기부분에 리스트가 펼쳐져야함 .. ?   --%>
-<%--    내 위치 가져오기 wifi 20개 가져와서 뿌리는 곳 -> 이게 바껴야됨--%>
+<%--    <%--%>
+<%--        // getWifi20()--%>
+<%--    List<ResponseWifi> responseWifi20 = WifiService.showWifi();--%>
+<%--    for (ResponseWifi responseWifi : responseWifi20) {--%>
+<%--    System.out.println("responseWifi 리스트" + responseWifi);--%>
+<%--    }--%>
+<%--    for (ResponseWifi responseWifi : responseWifi20) {--%>
+<%--    out.write("<tr>");--%>
+<%--    out.write("<td>" + responseWifi.getDistance() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getManageNum() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getRegion() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getWifiName() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getRoadAddress() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getDetailedAddress() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getFloor() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getInstallationType() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getOrganization() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getClassifiedService() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getNetworkType() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getYearOfInstall() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getInOrOut() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getConnEnvironment() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getLAT() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getLNT() + "</td>");--%>
+<%--    out.write("<td>" + responseWifi.getWorkTime() + "</td>");--%>
+<%--    out.write("</tr>");--%>
+<%--}--%>
+<%--%>--%>
 </tr>
 </body>
 </html>
