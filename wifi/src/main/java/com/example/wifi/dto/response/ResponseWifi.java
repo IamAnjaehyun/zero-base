@@ -20,7 +20,7 @@ public class ResponseWifi {
     String X_SWIFI_INSTL_MBY;   //"서울시(AP)" 설치기관
     String X_SWIFI_SVC_SE;      //"공공WiFi" 서비스구분
     String X_SWIFI_CMCWR;       //"자가망_수도사업소망" 망종류
-    int X_SWIFI_CNSTC_YEAR;     //"2019" 설치년도
+    String X_SWIFI_CNSTC_YEAR;     //"2019" 설치년도
     String X_SWIFI_INOUT_DOOR;  //"실내" 실내외구분
     String X_SWIFI_REMARS3;     //"" wifi접속환경
     Float LAT;                  //"126.96675" Y좌표
