@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'war'
+    id "io.freefair.lombok" version "5.3.0"
 }
 
 group 'com.example'
@@ -22,6 +23,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
+    implementation 'org.projectlombok:lombok:1.18.22'
     compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
@@ -32,7 +34,11 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.9.0'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+//
+//    testCompileOnly 'org.projectlombok:lombok:1.18.20' // 테스트 의존성 추가
+//    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20' // 테스트 의존성 추가
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
 }
