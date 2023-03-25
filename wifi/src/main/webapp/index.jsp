@@ -20,7 +20,9 @@
 <%--    아직 index.jsp--%>
 <a href="index.jsp">홈</a> |
 <a href="list.jsp">위치 히스토리 목록</a> |
-<a href="save.jsp">Open API 와이파이 정보 가져오기</a>
+<a href="save.jsp">Open API 와이파이 정보 가져오기</a>|
+<a href="save.jsp">북마크 보기</a>|
+<a href="save.jsp">북마크 그룹 관리</a>
 </br>
 
 <div class="divbox">
@@ -28,7 +30,8 @@
     <form action="index.jsp" method="post">
         LAT : <input type="text" id="lat" , name="lat"> ,
         LNT : <input type="text" id="lnt" , name="lnt">
-        <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
+        <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기(이거 누르면 history로 좌표 정보 들어가야 함)">
+<%--         --%>
     </form>
     <button onclick="getLocation();">내 위치 가져오기</button>
 </div>
