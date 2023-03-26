@@ -1,12 +1,12 @@
 package com.example.wifi.service;
 
+import com.example.wifi.dto.request.RequestHistory;
 import com.example.wifi.dto.request.RequestWifi;
+import com.example.wifi.dto.response.ResponseHistory;
 import com.example.wifi.dto.response.ResponseWifi;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WifiService {
@@ -49,7 +49,7 @@ public class WifiService {
         } catch (ClassNotFoundException e) {
             System.out.println("드라이버를 찾을 수 없습니다.");
         } catch (SQLException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         } finally {
             try {
                 if (conn != null) {
@@ -70,6 +70,107 @@ public class WifiService {
 
     }
 
+    public void saveHistory(RequestHistory requestHistory) {
+        PreparedStatement pstmt=null;
+        Connection conn = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            // 데이터베이스 파일 경로
+            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            // 데이터베이스 연결
+            conn = DriverManager.getConnection(url);
+
+            String sql = "insert into HISTORY(LAT, LNT, CREATED_TIME) " +
+                    "values (?, ?, ?); ";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setFloat(1, requestHistory.getLAT());
+            pstmt.setFloat(2, requestHistory.getLNT());
+            pstmt.setTimestamp(3, requestHistory.getCREATED_TIME());
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("[SQL Error : " + e.getMessage() + "]");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public List<ResponseHistory> showHistory(){
+        List<ResponseHistory> responseHistories = new ArrayList<>();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            // 데이터베이스 파일 경로
+            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            // 데이터베이스 연결
+            conn = DriverManager.getConnection(url);
+            String sql = "select * from HISTORY order by ID asc";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                ResponseHistory responseHistory = ResponseHistory.builder()
+                        .ID(rs.getInt("ID"))
+                        .LAT(rs.getFloat("LAT"))
+                        .LNT(rs.getFloat("LNT"))
+                        .CREATED_TIME(rs.getTimestamp("CREATED_TIME"))
+                        .build();
+                responseHistories.add(responseHistory);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return responseHistories;
+    }
+
+    public void deleteHistory(int id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            conn = DriverManager.getConnection(url);
+
+            String sql = "delete from HISTORY where ID = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public static double calculateDistance(Float x1, Float y1, Float x2, Float y2) {
         double x = Math.pow(Math.abs(x2 - x1), 2);
         double y = Math.pow(Math.abs(y2 - y1), 2);
@@ -77,7 +178,65 @@ public class WifiService {
         return Math.sqrt(x + y);
     }
 
-//    public List<ResponseWifi> showWifi() {
-//
-//    }
+    public List<ResponseWifi> showWifi() {
+        List<ResponseWifi> show20 = new ArrayList<>();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            // 데이터베이스 파일 경로
+            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            // 데이터베이스 연결
+            conn = DriverManager.getConnection(url);
+            String sql = "select * from WIFI order by X_SWIFI_MGR_NO limit 0, 20";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            ResponseWifi responseWifi = ResponseWifi.builder()
+                    .X_SWIFI_MGR_NO(rs.getString("X_SWIFI_MGR_NO"))
+                    .X_SWIFI_WRDOFC(rs.getString("X_SWIFI_WRDOFC"))
+                    .X_SWIFI_MAIN_NM(rs.getString("X_SWIFI_MAIN_NM"))
+                    .X_SWIFI_ADRES1(rs.getString("X_SWIFI_ADRES1"))
+                    .X_SWIFI_ADRES2(rs.getString("X_SWIFI_ADRES2"))
+                    .X_SWIFI_INSTL_FLOOR(rs.getString("X_SWIFI_INSTL_FLOOR"))
+                    .X_SWIFI_INSTL_TY(rs.getString("X_SWIFI_INSTL_TY"))
+                    .X_SWIFI_INSTL_MBY(rs.getString("X_SWIFI_INSTL_MBY"))
+                    .X_SWIFI_SVC_SE(rs.getString("X_SWIFI_SVC_SE"))
+                    .X_SWIFI_CMCWR(rs.getString("X_SWIFI_CMCWR"))
+                    .X_SWIFI_CNSTC_YEAR(rs.getString("X_SWIFI_CNSTC_YEAR"))
+                    .X_SWIFI_INOUT_DOOR(rs.getString("X_SWIFI_INOUT_DOOR"))
+                    .X_SWIFI_REMARS3(rs.getString("X_SWIFI_REMARS3"))
+                    .LAT(rs.getFloat("LAT"))
+                    .LNT(rs.getFloat("LNT"))
+                    .WORK_DTTM(Timestamp.valueOf(rs.getString("WORK_DTTM")))
+                    .build();
+//            System.out.println("SQLite 데이터베이스에 연결되었습니다.");
+            show20.add(responseWifi);
+
+        } catch (SQLException e) {
+            System.out.println("[SQL Error : " + e.getMessage() + "]");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return show20;
+    }
+
 }
