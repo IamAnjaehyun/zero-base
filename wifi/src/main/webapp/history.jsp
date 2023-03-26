@@ -41,7 +41,7 @@
         <td><%= history.getLAT() %></td>
         <td><%= history.getLNT() %></td>
         <td><%= history.getCREATED_TIME() %></td>
-        <td><button onclick="deleteHistory(<%= responseHistory.getID() %>)">삭제</button></td>
+        <td><button onclick="deleteHistory('<%= history.getID() %>')">삭제</button></td>
     </tr>
     <% } %>
     </tbody>
@@ -53,7 +53,7 @@
         if (confirm("정말로 삭제하시겠습니까?")) {
             $.ajax({
                 url: "history.jsp",
-                data: {ID: ID},
+                data: {id: ID},
                 success: function () {
                     location.reload();
                 }
@@ -63,7 +63,7 @@
 </script>
 
 <%
-    String id = request.getParameter("ID");
+    String id = request.getParameter("id");
     if (id != null) {
         try {
             service.deleteHistory(Integer.parseInt(id));
