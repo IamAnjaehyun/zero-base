@@ -1,6 +1,8 @@
 <%@ page import="com.example.wifi.dto.response.ResponseWifi" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.wifi.service.WifiService" %>
+<%@ page import="com.example.wifi.dto.request.RequestHistory" %>
+<%@ page import="java.sql.Timestamp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -12,22 +14,24 @@
         }
     </style>
 </head>
-
+<%
+    //    list 뿌리기
+%>
 <body>
 <%--<h1><%= "와이파이 정보 구하기" %>--%>
 </h1>
 </br>
 <%--    아직 index.jsp--%>
 <a href="index.jsp">홈</a> |
-<a href="list.jsp">위치 히스토리 목록</a> |
+<a href="history.jsp">위치 히스토리 목록</a> |
 <a href="save.jsp">Open API 와이파이 정보 가져오기</a>|
 <a href="save.jsp">북마크 보기</a>|
 <a href="save.jsp">북마크 그룹 관리</a>
 </br>
 
 <div class="divbox">
-<%--    아직 index.jsp--%>
-    <form action="index.jsp" method="post">
+    <%--    아직 index.jsp--%>
+    <form action="list.jsp" method="post">
         LAT : <input type="text" id="lat" , name="lat"> ,
         LNT : <input type="text" id="lnt" , name="lnt">
         <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
@@ -45,8 +49,8 @@
                     document.getElementById("lat").value = latitude;
                     document.getElementById("lnt").value = longitude;
 
-                console.log("lat : " + latitude);
-                console.log("lnt : " + longitude);
+                    console.log("lat : " + latitude);
+                    console.log("lnt : " + longitude);
                 }
             )
         } else {
@@ -62,7 +66,26 @@
         }
     }
 </script>
+<%
+    String lat = request.getParameter("lat");
+    String lnt = request.getParameter("lnt");
 
+    RequestHistory requestHistory = null;
+
+    if (lat != null && lnt != null) {
+        float parsedLat = Float.parseFloat(lat);
+        float parsedLnt = Float.parseFloat(lnt);
+
+        requestHistory = RequestHistory.builder()
+                .LAT(parsedLat)
+                .LNT(parsedLnt)
+                .CREATED_TIME(new Timestamp(System.currentTimeMillis()))
+                .build();
+
+        WifiService service = new WifiService();
+        service.saveHistory(requestHistory);
+    }
+%>
 <table>
     <thead>
     <tr bgcolor="#04AA6D">
@@ -89,32 +112,31 @@
 <tr>
 <%--    <%--%>
 <%--        // getWifi20()--%>
-<%--    List<ResponseWifi> responseWifi20 = WifiService.showWifi();--%>
-<%--    for (ResponseWifi responseWifi : responseWifi20) {--%>
-<%--    System.out.println("responseWifi 리스트" + responseWifi);--%>
-<%--    }--%>
-<%--    for (ResponseWifi responseWifi : responseWifi20) {--%>
-<%--    out.write("<tr>");--%>
-<%--    out.write("<td>" + responseWifi.getDistance() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getManageNum() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getRegion() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getWifiName() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getRoadAddress() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getDetailedAddress() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getFloor() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getInstallationType() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getOrganization() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getClassifiedService() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getNetworkType() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getYearOfInstall() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getInOrOut() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getConnEnvironment() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getLAT() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getLNT() + "</td>");--%>
-<%--    out.write("<td>" + responseWifi.getWorkTime() + "</td>");--%>
-<%--    out.write("</tr>");--%>
-<%--}--%>
-<%--%>--%>
+<%--        List<ResponseWifi> showWifi = service.showWifi();--%>
+<%--        for (ResponseWifi responseWifi : showWifi) {--%>
+<%--            System.out.println("responseWifi 리스트" + responseWifi);--%>
+<%--        }--%>
+<%--        for (ResponseWifi responseWifi : showWifi) {--%>
+<%--            out.write("<tr>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_MGR_NO() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_WRDOFC() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_MAIN_NM() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_ADRES1() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_ADRES2() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_INSTL_FLOOR() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_INSTL_TY() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_INSTL_MBY() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_SVC_SE() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_CMCWR() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_CNSTC_YEAR() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_INOUT_DOOR() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getX_SWIFI_REMARS3() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getLAT() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getLNT() + "</td>");--%>
+<%--            out.write("<td>" + responseWifi.getWORK_DTTM() + "</td>");--%>
+<%--            out.write("</tr>");--%>
+<%--        }--%>
+<%--    %>--%>
 </tr>
 </body>
 </html>
