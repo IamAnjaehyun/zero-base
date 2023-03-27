@@ -6,6 +6,7 @@ import com.example.wifi.dto.response.ResponseHistory;
 import com.example.wifi.dto.response.ResponseWifi;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class WifiService {
     }
 
     public void saveHistory(RequestHistory requestHistory) {
-        PreparedStatement pstmt=null;
+        PreparedStatement pstmt = null;
         Connection conn = null;
 
         try {
@@ -114,7 +115,7 @@ public class WifiService {
         }
     }
 
-    public List<ResponseHistory> showHistory(){
+    public List<ResponseHistory> showHistory() {
         List<ResponseHistory> responseHistories = new ArrayList<>();
 
         Connection conn = null;
@@ -130,7 +131,7 @@ public class WifiService {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 ResponseHistory responseHistory = ResponseHistory.builder()
                         .ID(rs.getInt("ID"))
                         .LAT(rs.getFloat("LAT"))
@@ -171,7 +172,7 @@ public class WifiService {
         }
     }
 
-    public static double calculateDistance(Float x1, Float y1, Float x2, Float y2) {
+    public static double calculateDistance(double x1, double y1, double x2, double y2) {
         double x = Math.pow(Math.abs(x2 - x1), 2);
         double y = Math.pow(Math.abs(y2 - y1), 2);
 
@@ -265,7 +266,7 @@ public class WifiService {
                         .X_SWIFI_REMARS3(rs.getString("X_SWIFI_REMARS3"))
                         .LAT(rs.getFloat("LAT"))
                         .LNT(rs.getFloat("LNT"))
-                        .WORK_DTTM(rs.getTimestamp("WORK_DTTM"))
+                        .WORK_DTTM(Timestamp.valueOf(String.valueOf(rs.getTimestamp("WORK_DTTM").getTime())))
                         .build();
 
                 result.add(responseWifi);
@@ -277,65 +278,64 @@ public class WifiService {
         return result;
     }
 
-    public List<ResponseWifi> showWifi() {
+    public List<ResponseWifi> showWifi(double myLat, double myLnt) throws SQLException {
         List<ResponseWifi> show20 = new ArrayList<>();
 
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
         try {
             Class.forName("org.sqlite.JDBC");
             // 데이터베이스 파일 경로
             String url = "jdbc:sqlite:C:/sqllite/test.db";
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
-            String sql = "select * from WIFI order by X_SWIFI_MGR_NO limit 0, 20";
+            String sql = "SELECT *, ((LAT - ?) * (LAT - ?)) + ((LNT - ?) * (LNT - ?)) AS distance FROM WIFI ORDER BY distance LIMIT 0, 20";
             pstmt = conn.prepareStatement(sql);
+            pstmt.setDouble(1, myLat);
+            pstmt.setDouble(2, myLat);
+            pstmt.setDouble(3, myLnt);
+            pstmt.setDouble(4, myLnt);
             rs = pstmt.executeQuery();
-            ResponseWifi responseWifi = ResponseWifi.builder()
-                    .X_SWIFI_MGR_NO(rs.getString("X_SWIFI_MGR_NO"))
-                    .X_SWIFI_WRDOFC(rs.getString("X_SWIFI_WRDOFC"))
-                    .X_SWIFI_MAIN_NM(rs.getString("X_SWIFI_MAIN_NM"))
-                    .X_SWIFI_ADRES1(rs.getString("X_SWIFI_ADRES1"))
-                    .X_SWIFI_ADRES2(rs.getString("X_SWIFI_ADRES2"))
-                    .X_SWIFI_INSTL_FLOOR(rs.getString("X_SWIFI_INSTL_FLOOR"))
-                    .X_SWIFI_INSTL_TY(rs.getString("X_SWIFI_INSTL_TY"))
-                    .X_SWIFI_INSTL_MBY(rs.getString("X_SWIFI_INSTL_MBY"))
-                    .X_SWIFI_SVC_SE(rs.getString("X_SWIFI_SVC_SE"))
-                    .X_SWIFI_CMCWR(rs.getString("X_SWIFI_CMCWR"))
-                    .X_SWIFI_CNSTC_YEAR(rs.getString("X_SWIFI_CNSTC_YEAR"))
-                    .X_SWIFI_INOUT_DOOR(rs.getString("X_SWIFI_INOUT_DOOR"))
-                    .X_SWIFI_REMARS3(rs.getString("X_SWIFI_REMARS3"))
-                    .LAT(rs.getFloat("LAT"))
-                    .LNT(rs.getFloat("LNT"))
-                    .WORK_DTTM(Timestamp.valueOf(rs.getString("WORK_DTTM")))
-                    .build();
-//            System.out.println("SQLite 데이터베이스에 연결되었습니다.");
-            show20.add(responseWifi);
 
-        } catch (SQLException e) {
-            System.out.println("[SQL Error : " + e.getMessage() + "]");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+            while (rs.next()) {
+                float distance = rs.getFloat("distance");
+                distance = Math.round(distance * 1000.0f) / 1000.0f; // 반올림
+                ResponseWifi responseWifi = ResponseWifi.builder()
+                        .distance(distance)
+                        .X_SWIFI_MGR_NO(rs.getString("X_SWIFI_MGR_NO"))
+                        .X_SWIFI_WRDOFC(rs.getString("X_SWIFI_WRDOFC"))
+                        .X_SWIFI_MAIN_NM(rs.getString("X_SWIFI_MAIN_NM"))
+                        .X_SWIFI_ADRES1(rs.getString("X_SWIFI_ADRES1"))
+                        .X_SWIFI_ADRES2(rs.getString("X_SWIFI_ADRES2"))
+                        .X_SWIFI_INSTL_FLOOR(rs.getString("X_SWIFI_INSTL_FLOOR"))
+                        .X_SWIFI_INSTL_TY(rs.getString("X_SWIFI_INSTL_TY"))
+                        .X_SWIFI_INSTL_MBY(rs.getString("X_SWIFI_INSTL_MBY"))
+                        .X_SWIFI_SVC_SE(rs.getString("X_SWIFI_SVC_SE"))
+                        .X_SWIFI_CMCWR(rs.getString("X_SWIFI_CMCWR"))
+                        .X_SWIFI_CNSTC_YEAR(rs.getString("X_SWIFI_CNSTC_YEAR"))
+                        .X_SWIFI_INOUT_DOOR(rs.getString("X_SWIFI_INOUT_DOOR"))
+                        .X_SWIFI_REMARS3(rs.getString("X_SWIFI_REMARS3"))
+                        .LAT(rs.getFloat("LAT"))
+                        .LNT(rs.getFloat("LNT"))
+                        .WORK_DTTM(rs.getTimestamp("WORK_DTTM"))
+                        .build();
+
+                show20.add(responseWifi);
             }
 
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
+
         return show20;
     }
-
 }

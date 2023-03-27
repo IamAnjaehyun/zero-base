@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 @ToString(callSuper = true)
 @EqualsAndHashCode()
 public class ResponseWifi {
+    Float distance;
     String X_SWIFI_MGR_NO;      //"ARI00001" 관리번호
     String X_SWIFI_WRDOFC;      //"서대문구" 자치구
     String X_SWIFI_MAIN_NM;     //"상수도사업본부" 와이파이명

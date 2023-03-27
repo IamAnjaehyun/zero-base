@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,5 +15,5 @@ import java.sql.Timestamp;
 public class RequestHistory {
     Float LAT ;
     Float LNT;
-    Timestamp CREATED_TIME;
+    Timestamp CREATED_TIME = Timestamp.valueOf(LocalDateTime.now());
 }
