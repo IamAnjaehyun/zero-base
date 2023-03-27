@@ -31,7 +31,7 @@
 
 <div class="divbox">
     <%--    아직 index.jsp--%>
-    <form action="list.jsp" method="post">
+    <form action="list.jsp" method="get">
         LAT : <input type="text" id="lat" , name="lat"> ,
         LNT : <input type="text" id="lnt" , name="lnt">
         <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
@@ -108,35 +108,37 @@
         <th><font color="white">작업일자</font></th>
     </tr>
     </thead>
-</table>
-<tr>
-<%--    <%--%>
-<%--        // getWifi20()--%>
-<%--        List<ResponseWifi> showWifi = service.showWifi();--%>
-<%--        for (ResponseWifi responseWifi : showWifi) {--%>
-<%--            System.out.println("responseWifi 리스트" + responseWifi);--%>
-<%--        }--%>
-<%--        for (ResponseWifi responseWifi : showWifi) {--%>
-<%--            out.write("<tr>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_MGR_NO() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_WRDOFC() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_MAIN_NM() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_ADRES1() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_ADRES2() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_INSTL_FLOOR() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_INSTL_TY() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_INSTL_MBY() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_SVC_SE() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_CMCWR() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_CNSTC_YEAR() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_INOUT_DOOR() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getX_SWIFI_REMARS3() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getLAT() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getLNT() + "</td>");--%>
-<%--            out.write("<td>" + responseWifi.getWORK_DTTM() + "</td>");--%>
-<%--            out.write("</tr>");--%>
-<%--        }--%>
-<%--    %>--%>
-</tr>
+    <tbody>
+    <tr>
+        <%
+
+            // getWifi20()
+            WifiService wifiService = new WifiService();
+            List<ResponseWifi> resWifi = wifiService.showWifi(Double.valueOf( lat), Double.valueOf(lnt));
+        %>
+        <% for(ResponseWifi responseWifi : resWifi) { %>
+        <tr>
+            <td><%= responseWifi.getDistance()%>km</td >
+            <td><%= responseWifi.getX_SWIFI_MGR_NO()%></td >
+            <td><%= responseWifi.getX_SWIFI_WRDOFC() %> </td>
+            <td><%= responseWifi.getX_SWIFI_MAIN_NM() %> </td>
+            <td><%= responseWifi.getX_SWIFI_ADRES1() %> </td>
+            <td><%= responseWifi.getX_SWIFI_ADRES2() %> </td>
+            <td><%= responseWifi.getX_SWIFI_INSTL_FLOOR() %> </td>
+            <td><%= responseWifi.getX_SWIFI_INSTL_TY() %> </td>
+            <td><%= responseWifi.getX_SWIFI_INSTL_MBY() %> </td>
+            <td><%= responseWifi.getX_SWIFI_SVC_SE() %> </td>
+            <td><%= responseWifi.getX_SWIFI_CMCWR() %> </td>
+            <td><%= responseWifi.getX_SWIFI_CNSTC_YEAR() %> </td>
+            <td><%= responseWifi.getX_SWIFI_INOUT_DOOR() %> </td>
+            <td><%= responseWifi.getX_SWIFI_REMARS3() %> </td>
+            <td><%= responseWifi.getLAT() %> </td>
+            <td><%= responseWifi.getLNT() %> </td>
+            <td><%= responseWifi.getWORK_DTTM() %> </td>
+            </tr>
+    <% }%>
+    </tbody>
+    </table>
+
 </body>
 </html>
