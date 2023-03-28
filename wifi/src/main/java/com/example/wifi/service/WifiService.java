@@ -62,15 +62,6 @@ public class WifiService {
         }
     }
 
-
-    public void deleteWifi() {
-
-    }
-
-    public void deleteAllWifi() {
-
-    }
-
     public void saveHistory(RequestHistory requestHistory) {
         PreparedStatement pstmt = null;
         Connection conn = null;
@@ -171,57 +162,6 @@ public class WifiService {
             }
         }
     }
-
-    public static double calculateDistance(double x1, double y1, double x2, double y2) {
-        double x = Math.pow(Math.abs(x2 - x1), 2);
-        double y = Math.pow(Math.abs(y2 - y1), 2);
-
-        return Math.sqrt(x + y);
-    }
-//    public List<ResponseWifi> getNearbyWIFI(double lat, double lnt) {
-//        List<ResponseWifi> nearbyWIFI = new ArrayList<>();
-//        Connection conn = null;
-//        PreparedStatement pstmt = null;
-//        ResultSet rs = null;
-//
-//        try {
-//            Class.forName("org.sqlite.JDBC");
-//            // 데이터베이스 파일 경로
-//            String url = "jdbc:sqlite:C:/sqllite/test.db";
-//            // 데이터베이스 연결
-//            conn = DriverManager.getConnection(url);
-//
-//            String sql = "SELECT lat, lnt, " +
-//                    "((? - lat) * (? - lat) + (? - lnt) * (? - lnt)) AS distance " +
-//                    "FROM WIFI " +
-//                    "ORDER BY distance ASC " +
-//                    "LIMIT 20;";
-//            pstmt = conn.prepareStatement(sql);
-//            rs = pstmt.executeQuery();
-//            pstmt.setDouble(1, lat);
-//            pstmt.setDouble(2, lat);
-//            pstmt.setDouble(3, lnt);
-//            pstmt.setDouble(4, lnt);
-//
-//            while (rs.next()) {
-//                int id = rs.getInt("id");
-//                String name = rs.getString("name");
-//                double latitude = rs.getDouble("lat");
-//                double longitude = rs.getDouble("lnt");
-//                double distance = rs.getDouble("distance");
-//
-//                WIFI wifi = new WIFI(id, name, latitude, longitude, distance);
-//                nearbyWIFI.add(wifi);
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return nearbyWIFI;
-//    }
 
     public List<ResponseWifi> getNearbyLocations(float lat, float lnt) throws SQLException {
         List<ResponseWifi> result = new ArrayList<>();
@@ -338,4 +278,51 @@ public class WifiService {
 
         return show20;
     }
+
+    public List<ResponseWifi> showDetail(String x_swifi_main_nm, float distance) throws SQLException {
+        List<ResponseWifi> showDetail = new ArrayList<>();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            // 데이터베이스 파일 경로
+            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            // 데이터베이스 연결
+            conn = DriverManager.getConnection(url);
+            String sql = "SELECT * FROM WIFI WHERE X_SWIFI_MAIN_NM = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, x_swifi_main_nm); // x_swifi_main_nm 파라미터 설정
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                ResponseWifi responseWifi = ResponseWifi.builder()
+                        .distance(distance)
+                        .X_SWIFI_MGR_NO(rs.getString("X_SWIFI_MGR_NO"))
+                        .X_SWIFI_WRDOFC(rs.getString("X_SWIFI_WRDOFC"))
+                        .X_SWIFI_MAIN_NM(rs.getString("X_SWIFI_MAIN_NM"))
+                        .X_SWIFI_ADRES1(rs.getString("X_SWIFI_ADRES1"))
+                        .X_SWIFI_ADRES2(rs.getString("X_SWIFI_ADRES2"))
+                        .X_SWIFI_INSTL_FLOOR(rs.getString("X_SWIFI_INSTL_FLOOR"))
+                        .X_SWIFI_INSTL_TY(rs.getString("X_SWIFI_INSTL_TY"))
+                        .X_SWIFI_INSTL_MBY(rs.getString("X_SWIFI_INSTL_MBY"))
+                        .X_SWIFI_SVC_SE(rs.getString("X_SWIFI_SVC_SE"))
+                        .X_SWIFI_CMCWR(rs.getString("X_SWIFI_CMCWR"))
+                        .X_SWIFI_CNSTC_YEAR(rs.getString("X_SWIFI_CNSTC_YEAR"))
+                        .X_SWIFI_INOUT_DOOR(rs.getString("X_SWIFI_INOUT_DOOR"))
+                        .X_SWIFI_REMARS3(rs.getString("X_SWIFI_REMARS3"))
+                        .LAT(rs.getFloat("LAT"))
+                        .LNT(rs.getFloat("LNT"))
+                        .WORK_DTTM(rs.getTimestamp("WORK_DTTM"))
+                        .build();
+                showDetail.add(responseWifi);
+            }
+            return showDetail;
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
