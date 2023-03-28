@@ -14,11 +14,10 @@
         }
     </style>
 </head>
-<%
-    //    list 뿌리기
-%>
+<h1><%= "와이파이 정보 구하기" %>
+
 <body>
-<%--<h1><%= "와이파이 정보 구하기" %>--%>
+<%--<h1><%= "와이파이 정보 보기" %>--%>
 </h1>
 </br>
 <%--    아직 index.jsp--%>
@@ -32,8 +31,8 @@
 <div class="divbox">
     <%--    아직 index.jsp--%>
     <form action="list.jsp" method="get">
-        LAT : <input type="text" id="lat" , name="lat"> ,
-        LNT : <input type="text" id="lnt" , name="lnt">
+        LAT : <input type="text" id="lat" , name="lat" value="0.0"> ,
+        LNT : <input type="text" id="lnt" , name="lnt" value="0.0">
         <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
     </form>
     <button onclick="getLocation();">내 위치 가져오기</button>
@@ -111,7 +110,6 @@
     <tbody>
     <tr>
         <%
-
             // getWifi20()
             WifiService wifiService = new WifiService();
             List<ResponseWifi> resWifi = wifiService.showWifi(Double.valueOf( lat), Double.valueOf(lnt));
@@ -121,7 +119,8 @@
             <td><%= responseWifi.getDistance()%>km</td >
             <td><%= responseWifi.getX_SWIFI_MGR_NO()%></td >
             <td><%= responseWifi.getX_SWIFI_WRDOFC() %> </td>
-            <td><%= responseWifi.getX_SWIFI_MAIN_NM() %> </td>
+<%--            <td><a href="detail.jsp?x_swifi_main_nm=<%= responseWifi.getX_SWIFI_MAIN_NM() %>"><%= responseWifi.getX_SWIFI_MAIN_NM() %></a></td>--%>
+            <td><a href="detail.jsp?x_swifi_main_nm=<%= responseWifi.getX_SWIFI_MAIN_NM() %>&distance=<%= responseWifi.getDistance() %>"><%= responseWifi.getX_SWIFI_MAIN_NM() %></a></td>
             <td><%= responseWifi.getX_SWIFI_ADRES1() %> </td>
             <td><%= responseWifi.getX_SWIFI_ADRES2() %> </td>
             <td><%= responseWifi.getX_SWIFI_INSTL_FLOOR() %> </td>

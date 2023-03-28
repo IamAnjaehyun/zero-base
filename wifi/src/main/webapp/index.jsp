@@ -30,10 +30,9 @@
 <div class="divbox">
 <%--    아직 index.jsp--%>
     <form action="list.jsp" method="post">
-        LAT : <input type="text" id="lat" , name="lat"> 0.0
-        LNT : <input type="text" id="lnt" , name="lnt"> 0.0
-        <input onclick="service.getNearbyLocations(document.getElementById('lat').value, document.getElementById('lnt').value);" type="submit" value="근처 WIFI 정보 보기(이거 누르면 history로 좌표 정보 들어가야 함)">
-<%--         --%>
+        LAT : <input type="text" id="lat" , name="lat" value="0.0"> ,
+        LNT : <input type="text" id="lnt" , name="lnt" value="0.0">
+        <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
     </form>
     <button onclick="getLocation();">내 위치 가져오기</button>
 </div>
