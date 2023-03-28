@@ -66,14 +66,14 @@
     }
 </script>
 <%
-    String lat = request.getParameter("lat");
-    String lnt = request.getParameter("lnt");
+    float lat = Float.parseFloat(request.getParameter("lat"));
+    float lnt = Float.parseFloat(request.getParameter("lnt"));
 
     RequestHistory requestHistory = null;
 
-    if (lat != null && lnt != null) {
-        float parsedLat = Float.parseFloat(lat);
-        float parsedLnt = Float.parseFloat(lnt);
+    if (lat != 0.0 && lnt != 0.0) {
+        float parsedLat = lat;
+        float parsedLnt = lnt;
 
         requestHistory = RequestHistory.builder()
                 .LAT(parsedLat)
@@ -112,7 +112,7 @@
         <%
             // getWifi20()
             WifiService wifiService = new WifiService();
-            List<ResponseWifi> resWifi = wifiService.showWifi(Double.valueOf( lat), Double.valueOf(lnt));
+            List<ResponseWifi> resWifi = wifiService.showWifi(lat, lnt);
         %>
         <% for(ResponseWifi responseWifi : resWifi) { %>
         <tr>

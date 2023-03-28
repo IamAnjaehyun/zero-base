@@ -218,7 +218,7 @@ public class WifiService {
         return result;
     }
 
-    public List<ResponseWifi> showWifi(double myLat, double myLnt) throws SQLException {
+    public List<ResponseWifi> showWifi(float myLat, float myLnt) throws SQLException {
         List<ResponseWifi> show20 = new ArrayList<>();
 
         Connection conn = null;
@@ -230,12 +230,12 @@ public class WifiService {
             String url = "jdbc:sqlite:C:/sqllite/test.db";
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
-            String sql = "SELECT *, ((LAT - ?) * (LAT - ?)) + ((LNT - ?) * (LNT - ?)) AS distance FROM WIFI ORDER BY distance LIMIT 0, 20";
+//            String sql = "SELECT *, 6371 * 2 * ASIN(SQRT(POWER(SIN((RADIANS(LAT) - RADIANS(?)) / 2), 2) + COS(RADIANS(?)) * COS(RADIANS(LAT)) * POWER(SIN((RADIANS(LNT) - RADIANS(?)) / 2), 2))) AS distance FROM WIFI ORDER BY distance asc LIMIT 0, 20";
+            String sql = "SELECT *, 6371 * 2 * ASIN(SQRT(POWER(SIN(((LAT - ?) * PI() / 180) / 2), 2) + COS(? * PI() / 180) * COS((LAT * PI() / 180)) * POWER(SIN(((LNT - ?) * PI() / 180) / 2), 2))) AS distance FROM WIFI ORDER BY distance LIMIT 0, 20";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setDouble(1, myLat);
-            pstmt.setDouble(2, myLat);
-            pstmt.setDouble(3, myLnt);
-            pstmt.setDouble(4, myLnt);
+            pstmt.setFloat(1, myLat);
+            pstmt.setFloat(2, myLat);
+            pstmt.setFloat(3, myLnt);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
