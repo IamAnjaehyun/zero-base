@@ -14,80 +14,34 @@
 </head>
 
 <body>
-<h1><%= "와이파이 정보 구하기" %>
+<h1><%= "북마크 그룹" %>
 </h1>
 </br>
-<%--    아직 index.jsp--%>
-<a href="../index.jsp">홈</a> |
-<a href="../history.jsp">위치 히스토리 목록</a> |
-<a href="../save.jsp">Open API 와이파이 정보 가져오기</a>|
-<a href="../save.jsp">북마크 보기</a>|
-<a href="../save.jsp">북마크 그룹 관리</a>
+<a href="index.jsp">홈</a> |
+<a href="history.jsp">위치 히스토리 목록</a> |
+<a href="save.jsp">Open API 와이파이 정보 가져오기</a>|
+<a href="bookmark/bookmarkShow.jsp">북마크 보기</a>|
+<a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
 </br>
-<%
-    WifiService service = new WifiService();
-%>
-<div class="divbox">
-    <%--    아직 index.jsp--%>
-    <form action="../list.jsp" method="post">
-        LAT : <input type="text" id="lat" , name="lat" value="0.0"> ,
-        LNT : <input type="text" id="lnt" , name="lnt" value="0.0">
-        <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
-    </form>
-    <button onclick="getLocation();">내 위치 가져오기</button>
-</div>
+<button onclick="location.href='bookmarkAdd.jsp'">북마크 추가</button>
 
 <script>
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (pos) {
-                    var latitude = pos.coords.latitude;
-                    var longitude = pos.coords.longitude;
 
-                    document.getElementById("lat").value = latitude;
-                    document.getElementById("lnt").value = longitude;
-                }
-            )
-        } else {
-            window.alert("현재 위치를 가져올 수 없습니다.")
-        }
-    }
-
-    function getWifi() {
-        let lat = document.getElementById("lat").value;
-        let lnt = document.getElementById("lnt").value;
-        if (lat === "" || lnt === "") {
-            alert("비어있는 값 존재.");
-        }
-    }
 </script>
 
 <table>
     <thead>
     <tr bgcolor="#04AA6D">
-        <th><font color="white">거리(km)</font></th>
-        <th><font color="white">관리번호</font></th>
-        <th><font color="white">자치구</font></th>
-        <th><font color="white">와이파이명</font></th>
-        <th><font color="white">도로명주소</font></th>
-        <th><font color="white">상세주소</font></th>
-        <th><font color="white">설치위치(층)</font></th>
-        <th><font color="white">설치유형</font></th>
-        <th><font color="white">설치기관</font></th>
-        <th><font color="white">서비스구분</font></th>
-        <th><font color="white">망종류</font></th>
-        <th><font color="white">설치년도</font></th>
-        <th><font color="white">실내외구분</font></th>
-        <th><font color="white">WIFI접속환경</font></th>
-        <th><font color="white">X좌표</font></th>
-        <th><font color="white">Y좌표</font></th>
-        <th><font color="white">작업일자</font></th>
+        <th><font color="white">ID</font></th>
+        <th><font color="white">북마크 이름</font></th>
+        <th><font color="white">등록 일자</font></th>
+        <th><font color="white">수정 일자</font></th>
+        <th><font color="white">비고</font></th>
     </tr>
     </thead>
 </table>
 <tr>
-    <%--    여기부분에 리스트가 펼쳐져야함 .. ?   --%>
-    <%--    내 위치 가져오기 wifi 20개 가져와서 뿌리는 곳 -> 이게 바껴야됨--%>
+<%--    북마크 list (수정 + 삭제)--%>
 </tr>
 </body>
 </html>
