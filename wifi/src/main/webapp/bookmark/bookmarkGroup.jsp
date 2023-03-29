@@ -17,18 +17,19 @@
 <h1><%= "와이파이 정보 구하기" %>
 </h1>
 </br>
-<a href="index.jsp">홈</a> |
-<a href="history.jsp">위치 히스토리 목록</a> |
-<a href="save.jsp">Open API 와이파이 정보 가져오기</a>|
-<a href="bookmark/bookmarkShow.jsp">북마크 보기</a>|
-<a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
+<%--    아직 index.jsp--%>
+<a href="../index.jsp">홈</a> |
+<a href="../history.jsp">위치 히스토리 목록</a> |
+<a href="../save.jsp">Open API 와이파이 정보 가져오기</a>|
+<a href="../save.jsp">북마크 보기</a>|
+<a href="../save.jsp">북마크 그룹 관리</a>
 </br>
 <%
     WifiService service = new WifiService();
 %>
 <div class="divbox">
-<%--    아직 index.jsp--%>
-    <form action="list.jsp" method="post">
+    <%--    아직 index.jsp--%>
+    <form action="../list.jsp" method="post">
         LAT : <input type="text" id="lat" , name="lat" value="0.0"> ,
         LNT : <input type="text" id="lnt" , name="lnt" value="0.0">
         <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
@@ -85,8 +86,8 @@
     </thead>
 </table>
 <tr>
-<%--    여기부분에 리스트가 펼쳐져야함 .. ?   --%>
-<%--    내 위치 가져오기 wifi 20개 가져와서 뿌리는 곳 -> 이게 바껴야됨--%>
+    <%--    여기부분에 리스트가 펼쳐져야함 .. ?   --%>
+    <%--    내 위치 가져오기 wifi 20개 가져와서 뿌리는 곳 -> 이게 바껴야됨--%>
 </tr>
 </body>
 </html>
