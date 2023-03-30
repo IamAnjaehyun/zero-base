@@ -34,13 +34,14 @@
 <%
     String name = request.getParameter("name");
     String orderNum = request.getParameter("orderNum");
-
-    RequestBookmarkList requestBookmarkList = RequestBookmarkList.builder()
-            .name(name)
-            .id(Integer.parseInt(orderNum))
-            .build();
-    BookmarkService service = new BookmarkService();
-    service.addBookMarkList(requestBookmarkList);
+    if (!name.equals("") && !orderNum.equals("")) {
+        RequestBookmarkList requestBookmarkList = RequestBookmarkList.builder()
+                .name(name)
+                .id(Integer.parseInt(orderNum))
+                .build();
+        BookmarkService service = new BookmarkService();
+        service.addBookMarkList(requestBookmarkList);
+    }
 %>
 <table>
     <thead>
