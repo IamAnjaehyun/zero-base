@@ -2,9 +2,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.wifi.service.WifiService" %>
 <%@ page import="com.example.wifi.service.BookmarkService" %>
-<%@ page import="java.sql.Timestamp" %>
 <%@ page import="com.example.wifi.dto.request.RequestBookmark" %>
 <%@ page import="com.example.wifi.dto.request.RequestBookmarkList" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.sql.*" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -19,9 +20,6 @@
 <a href="../bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
 </br>
 
-<script>
-
-</script>
 
 <script>
     function getNameId() {
@@ -31,9 +29,10 @@
             alert("비어있는 값 존재.");
         }
     }
-
 </script>
-
+<%
+    request.setCharacterEncoding("utf-8");
+%>
 <table>
     <thead>
     <form action="bookmarkGroup.jsp" method="POST">
@@ -49,7 +48,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" value="추가">
+                    <input type="submit" onclick="getNameId();" value="추가">
                 </td>
             </tr>
             </thead>
@@ -65,13 +64,4 @@
 
 </tr>
 </body>
-
-<head>
-    <title>JaeHyun</title>
-    <style>
-        .divbox {
-            display: inline-flex;
-        }
-    </style>
-</head>
 </html>
