@@ -1,4 +1,4 @@
-package com.example.wifi.dto.request;
+package com.example.wifi.dto.response;
 
 import lombok.*;
 
@@ -8,7 +8,6 @@ import lombok.*;
 @Builder
 @ToString(callSuper = true)
 @EqualsAndHashCode()
-public class RequestBookmarkList {
+public class ResponseBookmarkList {
     String name;
-    int num;
 }
