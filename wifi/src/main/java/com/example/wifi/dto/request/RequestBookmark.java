@@ -11,9 +11,10 @@ import java.time.LocalDateTime;
 @ToString(callSuper = true)
 @EqualsAndHashCode()
 public class RequestBookmark {
-    int id;
-    String name;
-    int orderNum;
-    Timestamp created = Timestamp.valueOf(LocalDateTime.now());
-    Timestamp fix;
+    int ID ;
+    String BOOKMARK_NAME;
+    String WIFI_NO;
+    String BOOKMARK_NO;
+    Timestamp CREATED_TIME;
+    Timestamp FIX_TIME;
 }

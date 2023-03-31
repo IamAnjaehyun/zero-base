@@ -1,6 +1,10 @@
 <%@ page import="com.example.wifi.dto.response.ResponseWifi" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.wifi.service.WifiService" %>
+<%@ page import="com.example.wifi.service.BookmarkService" %>
+<%@ page import="com.example.wifi.dto.response.ResponseBookmarkList" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.time.LocalDateTime" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -24,43 +28,61 @@
 <a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
 </br>
 <%
-  WifiService service = new WifiService();
+  BookmarkService bookmarkService = new BookmarkService();
+  List<ResponseBookmarkList> bookmarkLists = bookmarkService.showBookmarkList(); // bookmarkService에서 bookmarklist 테이블에서 name 값을 가져오는 메소드
+  request.setAttribute("nameList", bookmarkLists);
 %>
-<div class="divbox">
-  <%--    아직 index.jsp--%>
-  <form action="list.jsp" method="get">
-    LAT : <input type="text" id="lat" , name="lat" value="0.0"> ,
-    LNT : <input type="text" id="lnt" , name="lnt" value="0.0">
-    <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
-  </form>
-  <button onclick="getLocation();">내 위치 가져오기</button>
-</div>
+<%
+  // selectbox에서 선택한 bookmarklist 정보를 가져온다.
+  String selectedBookmarkList = request.getParameter("bookmarklist");
+  // 여기가 비응신
 
-<script>
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (pos) {
-                var latitude = pos.coords.latitude;
-                var longitude = pos.coords.longitude;
+// 내가 띄운 데이터의 getX_SWIFI_MGR_NO을 가져온다.
+  String xSwifiMgrNo = request.getParameter("MGR_NO");
 
-                document.getElementById("lat").value = latitude;
-                document.getElementById("lnt").value = longitude;
-              }
-      )
-    } else {
-      window.alert("현재 위치를 가져올 수 없습니다.")
-    }
+  PreparedStatement pstmt = null;
+  Connection conn = null;
+  request.setCharacterEncoding("utf-8");
+// bookmark 테이블에 데이터를 추가한다.
+  try {
+    Class.forName("org.sqlite.JDBC");
+    // 데이터베이스 파일 경로
+    String url = "jdbc:sqlite:C:/sqllite/test.db";
+    // 데이터베이스 연결
+    conn = DriverManager.getConnection(url);
+
+    // SQL query 작성
+    String sql = "INSERT INTO bookmark (BOOKMARK_NO, WIFI_NO, CREATED_TIME) VALUES (?, ? ,?)";
+    // Prepare statement 생성
+    conn.prepareStatement(sql);
+    pstmt.setString(1, selectedBookmarkList);
+    pstmt.setString(2, xSwifiMgrNo);
+    pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+
+    // Execute query
+    pstmt.executeUpdate();
+
+    // Clean-up
+    pstmt.close();
+    conn.close();
+
+  }catch (SQLException | ClassNotFoundException e){
+    throw  new RuntimeException(e);
   }
+%>
 
-  function getWifi() {
-    let lat = document.getElementById("lat").value;
-    let lnt = document.getElementById("lnt").value;
-    if (lat === "" || lnt === "") {
-      alert("비어있는 값 존재.");
-    }
-  }
-</script>
 
+<select>
+  <option value="">북마크 그룹 이름 선택</option>
+  <% for(ResponseBookmarkList bookmark : bookmarkLists) { %>
+  <option value="<%= bookmark.getName() %>"><%= bookmark.getName() %></option>
+  <% } %>
+</select>
+<button onclick="location.href='detail.jsp'">북마크 추가하기</button>
+
+<form>
+
+</form>
 <table>
   <thead>
   <tr bgcolor="#04AA6D">
@@ -85,19 +107,22 @@
   </thead>
   <tbody>
   <tr>
-    <%--    여기부분에 리스트가 펼쳐져야함 .. ?   --%>
-    <%--    내 위치 가져오기 wifi 20개 가져와서 뿌리는 곳 -> 이게 바껴야됨--%>
+
       <%
     WifiService wifiService = new WifiService();
     String x_swifi_main_nm = request.getParameter("x_swifi_main_nm");
     float distance = Float.parseFloat(request.getParameter("distance"));
-    List<ResponseWifi> resWifi = wifiService.showDetail(x_swifi_main_nm,distance);
+    List<ResponseWifi> resWifi = null;
+    try {
+    resWifi = wifiService.showDetail(x_swifi_main_nm,distance);} catch (SQLException e) {
+    throw new RuntimeException(e);
+}
     %>
 
       <% for(ResponseWifi responseWifi : resWifi) { %>
   <tr>
     <td><%= responseWifi.getDistance()%>km</td >
-    <td><%= responseWifi.getX_SWIFI_MGR_NO()%></td >
+    <td id="MGR_NO"><%= responseWifi.getX_SWIFI_MGR_NO()%></td >
     <td><%= responseWifi.getX_SWIFI_WRDOFC() %> </td>
     <td><%= responseWifi.getX_SWIFI_MAIN_NM() %> </td>
     <td><%= responseWifi.getX_SWIFI_ADRES1() %> </td>
