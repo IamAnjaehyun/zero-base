@@ -31,11 +31,34 @@
     }
 </script>
 <%
-    request.setCharacterEncoding("utf-8");
+    String name = request.getParameter("name");
+    String num = request.getParameter("orderNum");
+
+    if (name != null && num != null && !name.equals("") && !num.equals("")) {
+        PreparedStatement pstmt;
+        Connection conn = null;
+        request.setCharacterEncoding("utf-8");
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            conn = DriverManager.getConnection(url);
+
+            // 테이블 생성 후 데이터 삽입
+            String sql = "insert into BOOKMARKLIST (NAME, NUM) values (?, ?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            pstmt.setInt(2, Integer.parseInt(num));
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 %>
 <table>
     <thead>
-    <form action="bookmarkGroup.jsp" method="POST">
+    <form action="bookmarkListAdd.jsp" method="POST">
         <table>
             <thead>
             <tr>

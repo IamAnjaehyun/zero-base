@@ -9,8 +9,8 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="com.example.wifi.dto.response.ResponseBookmarkList" %>
-<%--jstl--%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,42 +39,17 @@
 %>
 
 <select>
-    <option value="">--선택--</option>
+    <option value="">북마크 그룹 이름 선택</option>
     <% for(ResponseBookmarkList bookmark : bookmarkLists) { %>
     <option value="<%= bookmark.getName() %>"><%= bookmark.getName() %></option>
     <% } %>
 </select>
-<button onclick="location.href='bookmarkListAdd.jsp'">북마크 추가</button>
+<button onclick="location.href='bookmarkListAdd.jsp'">북마크 추가하기</button>
 
 <script>
 
 </script>
-<%
-    String name = request.getParameter("name");
-    String num = request.getParameter("orderNum");
 
-    if (name != null && num != null && !name.equals("") && !num.equals("")) {
-        PreparedStatement pstmt;
-        Connection conn = null;
-        request.setCharacterEncoding("utf-8");
-
-        try {
-            Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:C:/sqllite/test.db";
-            conn = DriverManager.getConnection(url);
-
-            // 테이블 생성 후 데이터 삽입
-            String sql = "insert into BOOKMARKLIST (NAME, NUM) values (?, ?)";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, name);
-            pstmt.setInt(2, Integer.parseInt(num));
-            pstmt.executeUpdate();
-            pstmt.close();
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-%>
 <table>
     <thead>
     <tr bgcolor="#04AA6D">
