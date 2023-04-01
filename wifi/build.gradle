@@ -30,22 +30,18 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     // web
     compileOnly 'javax:javaee-web-api:8.0.1'
-// jsp
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly 'org.projectlombok:lombok'
+    // jsp
     compileOnly 'javax.servlet:jsp-api:2.0'
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.9.0'
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-//
-//    testCompileOnly 'org.projectlombok:lombok:1.18.20' // 테스트 의존성 추가
-//    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20' // 테스트 의존성 추가
-    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
-
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.1'
+
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 test {
