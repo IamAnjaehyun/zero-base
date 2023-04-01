@@ -119,7 +119,7 @@
             <td><%= responseWifi.getX_SWIFI_MGR_NO()%></td >
             <td><%= responseWifi.getX_SWIFI_WRDOFC() %> </td>
 <%--            <td><a href="detail.jsp?x_swifi_main_nm=<%= responseWifi.getX_SWIFI_MAIN_NM() %>"><%= responseWifi.getX_SWIFI_MAIN_NM() %></a></td>--%>
-            <td><a href="detail.jsp?x_swifi_main_nm=<%= responseWifi.getX_SWIFI_MAIN_NM() %>&distance=<%= responseWifi.getDistance() %>"><%= responseWifi.getX_SWIFI_MAIN_NM() %></a></td>
+            <td><a href="detail.jsp?mgrNo=<%= responseWifi.getX_SWIFI_MGR_NO() %>&distance=<%= responseWifi.getDistance() %>"><%= responseWifi.getX_SWIFI_MAIN_NM() %></a></td>
             <td><%= responseWifi.getX_SWIFI_ADRES1() %> </td>
             <td><%= responseWifi.getX_SWIFI_ADRES2() %> </td>
             <td><%= responseWifi.getX_SWIFI_INSTL_FLOOR() %> </td>

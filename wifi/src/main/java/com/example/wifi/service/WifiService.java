@@ -279,7 +279,7 @@ public class WifiService {
         return show20;
     }
 
-    public List<ResponseWifi> showDetail(String x_swifi_main_nm, float distance) throws SQLException {
+    public List<ResponseWifi> showDetail(String mgrNo, float distance) throws SQLException {
         List<ResponseWifi> showDetail = new ArrayList<>();
 
         Connection conn = null;
@@ -291,9 +291,9 @@ public class WifiService {
             String url = "jdbc:sqlite:C:/sqllite/test.db";
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
-            String sql = "SELECT * FROM WIFI WHERE X_SWIFI_MAIN_NM = ?";
+            String sql = "SELECT * FROM WIFI WHERE X_SWIFI_MGR_NO = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, x_swifi_main_nm); // x_swifi_main_nm 파라미터 설정
+            pstmt.setString(1, mgrNo); // x_swifi_main_nm 파라미터 설정
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
