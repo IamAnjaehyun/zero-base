@@ -6,6 +6,7 @@
 <%@ page import="com.example.wifi.dto.request.RequestBookmarkList" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.time.LocalDateTime" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -48,10 +49,11 @@
             conn = DriverManager.getConnection(url);
 
             // 테이블 생성 후 데이터 삽입
-            String sql = "insert into BOOKMARKLIST (NAME, NUM) values (?, ?)";
+            String sql = "insert into BOOKMARKLIST (NAME, NUM, CREATED_TIME) values (?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
             pstmt.setInt(2, Integer.parseInt(num));
+            pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException | ClassNotFoundException e) {
