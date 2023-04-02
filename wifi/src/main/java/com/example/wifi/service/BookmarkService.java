@@ -58,6 +58,38 @@ public class BookmarkService {
         }
         return responseHistories;
     }
+    public List<ResponseBookmarkList> showBookmarkGroupList() {
+        List<ResponseBookmarkList> responseHistories = new ArrayList<>();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            // 데이터베이스 파일 경로
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+            // 데이터베이스 연결
+            conn = DriverManager.getConnection(url);
+            String sql = "select * from BOOKMARKLIST order by ID asc";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                ResponseBookmarkList responseBookmarkList = ResponseBookmarkList.builder()
+                        .ID(rs.getInt("ID"))
+                        .name(rs.getString("NAME"))
+                        .NUM(rs.getInt("NUM"))
+                        .CREATED_TIME(rs.getTimestamp("CREATED_TIME"))
+                        .FIXED_TIME(rs.getTimestamp("CREATED_TIME"))
+                        .build();
+                responseHistories.add(responseBookmarkList);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return responseHistories;
+    }
 
     public List<ResponseBookmark> showBookmark() {
         List<ResponseBookmark> responseBookmarks = new ArrayList<>();
@@ -90,6 +122,32 @@ public class BookmarkService {
             throw new RuntimeException(e);
         }
         return responseBookmarks;
+    }
+
+    public void deleteBookmark(int id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+            conn = DriverManager.getConnection(url);
+
+            String sql = "delete from BOOKMARK where ID = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 }
