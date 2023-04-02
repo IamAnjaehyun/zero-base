@@ -31,6 +31,7 @@
     }
 </script>
 <%
+    request.setCharacterEncoding("utf-8");
     String name = request.getParameter("name");
     String num = request.getParameter("orderNum");
 

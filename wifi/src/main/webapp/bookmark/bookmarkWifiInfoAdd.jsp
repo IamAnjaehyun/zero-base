@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    request.setCharacterEncoding("utf-8");
     // selectbox에서 선택한 bookmarklist 정보를 가져온다.
     String selectedBookmarkList = request.getParameter("listName");
 
@@ -49,3 +50,15 @@
         }
     }
 %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<div style="text-align: center"><h1>북마크 추가가 완료되었습니다.</h1></div>
+
+<div style="text-align: center"><a href="bookmarkShow.jsp">북마크 보러가기</a></div>
+
+
+</body>
+</html>

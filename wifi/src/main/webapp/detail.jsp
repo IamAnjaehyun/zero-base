@@ -28,11 +28,13 @@
 <a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
 </br>
 <%
+  request.setCharacterEncoding("utf-8");
   BookmarkService bookmarkService = new BookmarkService();
   List<ResponseBookmarkList> bookmarkLists = bookmarkService.showBookmarkList(); // bookmarkService에서 bookmarklist 테이블에서 name 값을 가져오는 메소드
   request.setAttribute("nameList", bookmarkLists);
 %>
 <%
+    request.setCharacterEncoding("utf-8");
     // wifi에 대한 상세 정보를 조회한다.
     WifiService wifiService = new WifiService();
     String mgrNo = request.getParameter("mgrNo");
