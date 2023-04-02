@@ -15,5 +15,5 @@ import java.time.LocalDateTime;
 public class RequestHistory {
     Float LAT ;
     Float LNT;
-    Timestamp CREATED_TIME = Timestamp.valueOf(LocalDateTime.now());
+    Timestamp CREATED_TIME;
 }

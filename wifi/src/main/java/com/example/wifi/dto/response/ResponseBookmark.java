@@ -1,5 +1,4 @@
-package com.example.wifi.dto.request;
-
+package com.example.wifi.dto.response;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -10,10 +9,9 @@ import java.time.LocalDateTime;
 @Builder
 @ToString(callSuper = true)
 @EqualsAndHashCode()
-public class RequestBookmark {
+public class ResponseBookmark {
     int ID ;
+    String BOOKMARK_NAME;
     String WIFI_NO;
-    String BOOKMARK_NO;
     Timestamp CREATED_TIME;
-    Timestamp FIX_TIME;
 }
