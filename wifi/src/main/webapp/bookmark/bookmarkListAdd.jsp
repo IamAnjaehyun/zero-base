@@ -41,7 +41,9 @@
 
         try {
             Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+
             conn = DriverManager.getConnection(url);
 
             // 테이블 생성 후 데이터 삽입

@@ -18,7 +18,7 @@ public class WifiService {
         try {
             Class.forName("org.sqlite.JDBC");
             // 데이터베이스 파일 경로
-            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
 //            System.out.println("SQLite 데이터베이스에 연결되었습니다.");
@@ -69,7 +69,9 @@ public class WifiService {
         try {
             Class.forName("org.sqlite.JDBC");
             // 데이터베이스 파일 경로
-            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
 
@@ -115,7 +117,9 @@ public class WifiService {
         try {
             Class.forName("org.sqlite.JDBC");
             // 데이터베이스 파일 경로
-            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
             String sql = "select * from HISTORY order by ID asc";
@@ -144,7 +148,8 @@ public class WifiService {
 
         try {
             Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
             conn = DriverManager.getConnection(url);
 
             String sql = "delete from HISTORY where ID = ?";
@@ -173,7 +178,9 @@ public class WifiService {
         try {
             Class.forName("org.sqlite.JDBC");
             // 데이터베이스 파일 경로
-            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
             String sql = "SELECT * FROM WIFI WHERE lat BETWEEN ? AND ? AND lnt BETWEEN ? AND ? ORDER BY SQRT(POWER(ABS(lat - ?), 2) + POWER(ABS(lnt - ?), 2)) LIMIT 20";
@@ -227,7 +234,9 @@ public class WifiService {
         try {
             Class.forName("org.sqlite.JDBC");
             // 데이터베이스 파일 경로
-            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
 //            String sql = "SELECT *, 6371 * 2 * ASIN(SQRT(POWER(SIN((RADIANS(LAT) - RADIANS(?)) / 2), 2) + COS(RADIANS(?)) * COS(RADIANS(LAT)) * POWER(SIN((RADIANS(LNT) - RADIANS(?)) / 2), 2))) AS distance FROM WIFI ORDER BY distance asc LIMIT 0, 20";
@@ -288,7 +297,9 @@ public class WifiService {
         try {
             Class.forName("org.sqlite.JDBC");
             // 데이터베이스 파일 경로
-            String url = "jdbc:sqlite:C:/sqllite/test.db";
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
             String sql = "SELECT * FROM WIFI WHERE X_SWIFI_MGR_NO = ?";

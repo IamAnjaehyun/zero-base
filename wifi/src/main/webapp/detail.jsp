@@ -33,45 +33,18 @@
   request.setAttribute("nameList", bookmarkLists);
 %>
 <%
-  // selectbox에서 선택한 bookmarklist 정보를 가져온다.
-  String selectedBookmarkList = request.getParameter("listName");
-
-// 내가 띄운 데이터의 getX_SWIFI_MGR_NO을 가져온다.
-  String xSwifiMgrNo = request.getParameter("MGR_NO");
-
-  PreparedStatement pstmt = null;
-  Connection conn = null;
-  request.setCharacterEncoding("utf-8");
-  if (selectedBookmarkList != null && xSwifiMgrNo!=null) {
-// bookmark 테이블에 데이터를 추가한다.
-    try {
-      Class.forName("org.sqlite.JDBC");
-      // 데이터베이스 파일 경로
-      String url = "jdbc:sqlite:C:/sqllite/test.db";
-      // 데이터베이스 연결
-      conn = DriverManager.getConnection(url);
-
-      // SQL query 작성
-      String sql = "INSERT INTO bookmark (BOOKMARK_NO, WIFI_NO, CREATED_TIME) VALUES (?, ? ,?)";
-      // Prepare statement 생성
-      conn.prepareStatement(sql);
-      pstmt.setString(1, selectedBookmarkList);
-      pstmt.setString(2, xSwifiMgrNo);
-      pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-
-      // Execute query
-      pstmt.executeUpdate();
-
-      // Clean-up
-      pstmt.close();
-      conn.close();
-
-    } catch (SQLException | ClassNotFoundException e) {
-      throw new RuntimeException(e);
+    // wifi에 대한 상세 정보를 조회한다.
+    WifiService wifiService = new WifiService();
+    String mgrNo = request.getParameter("mgrNo");
+    List<ResponseWifi> resWifi = null;
+    if(request.getParameter("distance") != null){
+        try {
+            resWifi = wifiService.showDetail(mgrNo,Float.parseFloat(request.getParameter("distance")));
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-  }
 %>
-
 
 <select>
   <option value="">북마크 그룹 이름 선택</option>
@@ -79,7 +52,7 @@
   <option name="listName" id="listName" value="<%= bookmark.getName() %>"><%= bookmark.getName() %></option>
   <% } %>
 </select>
-<button onclick="location.href='../bookmark/bookmarkShow.jsp'">북마크 추가하기</button>
+<button onclick="addWifiInfoToBookmark('<%=resWifi.get(0).getX_SWIFI_MGR_NO()%>')">북마크 추가하기</button>
 
 <form>
 
@@ -108,20 +81,6 @@
   </thead>
   <tbody>
   <tr>
-
-      <%
-    WifiService wifiService = new WifiService();
-    String mgrNo = request.getParameter("mgrNo");
-    List<ResponseWifi> resWifi = null;
-    if(request.getParameter("distance") != null){
-    try {
-    resWifi = wifiService.showDetail(mgrNo,Float.parseFloat(request.getParameter("distance")));
-    }catch (SQLException e) {
-    throw new RuntimeException(e);
-      }
-    }
-    %>
-
       <% for(ResponseWifi responseWifi : resWifi) { %>
   <tr>
     <td><%= responseWifi.getDistance()%>km</td >
@@ -146,6 +105,36 @@
   </tr>
   </tbody>
 </table>
+<script type="text/javascript">
+  function addWifiInfoToBookmark(mgrNo){
+      let listName = document.getElementById('listName').value;
 
+      console.log('param check:::' + mgrNo,listName)
+
+      let form = document.createElement('form');
+      form.setAttribute("charset","UTF-8");
+      form.setAttribute("method","Post");
+      form.setAttribute("action","<%=request.getContextPath()%>/bookmark/bookmarkWifiInfoAdd.jsp")
+
+      let mgrNoInput = document.createElement("input");
+      mgrNoInput.setAttribute("type","hidden");
+      mgrNoInput.setAttribute("name","mgrNo");
+      mgrNoInput.setAttribute("value",mgrNo);
+
+      let listNameInput = document.createElement("input");
+      listNameInput.setAttribute("type","hidden");
+      listNameInput.setAttribute("name","listName");
+      listNameInput.setAttribute("value",listName);
+
+      form.append(mgrNoInput);
+      form.append(listNameInput);
+      //body에 동적으로 생성한 form 데이터를 추가한다.
+
+      document.body.appendChild(form);
+      //전송
+      form.submit();
+  }
+
+</script>
 </body>
 </html>

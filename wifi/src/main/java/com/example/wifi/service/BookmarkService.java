@@ -40,7 +40,7 @@ public List<ResponseBookmarkList> showBookmarkList() {
     try {
         Class.forName("org.sqlite.JDBC");
         // 데이터베이스 파일 경로
-        String url = "jdbc:sqlite:C:/sqllite/test.db";
+        String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
         // 데이터베이스 연결
         conn = DriverManager.getConnection(url);
         String sql = "select * from BOOKMARKLIST order by ID asc";
