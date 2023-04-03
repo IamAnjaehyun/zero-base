@@ -27,11 +27,13 @@
 <a href="../bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
 </br>
 <%
-  request.setCharacterEncoding("utf-8");
-  BookmarkService service = new BookmarkService();
-  ResponseBookmark responseBookmark = new ResponseBookmark();
-  List<ResponseBookmark> bookmarkList = service.showBookmark();
-%>
+    request.setCharacterEncoding("utf-8");
+    int bookmarkId = Integer.parseInt(request.getParameter("ID"));
+    BookmarkService service = new BookmarkService();
+    List<ResponseBookmark> bookmarkList = service.showOnlyBookmark(bookmarkId);
+  %>
+
+
 <body>
 북마크를 삭제하시겠습니까?
 <table>
@@ -46,9 +48,15 @@
   <tr>
       <% for(ResponseBookmark bookmarkLists : bookmarkList) { %>
   <tr>
-    <td id="MGR_NO"><%= bookmarkLists.getBOOKMARK_NAME()%></td >
+    <td><%= bookmarkLists.getBOOKMARK_NAME()%></td >
     <td><%= bookmarkLists.getWIFI_NO() %> </td>
     <td><%= bookmarkLists.getCREATED_TIME()%> </td>
+  <td>
+    <form method="post" action="bookmarkDeleteOk.jsp">
+      <input type="hidden" name="bookmarkId" value="<%= bookmarkLists.getID() %>">
+      <input type="submit" value="삭제">
+    </form>
+  </td>
   </tr>
   <% }%>
   </tr>
@@ -56,9 +64,5 @@
 
   </tbody>
 </table>
-<tr>
-  <a href="bookmarkGroup.jsp">돌아가기</a> |<input type="submit" onclick="" value="삭제">
-
-</tr>
 </body>
 </html>

@@ -52,6 +52,7 @@
     <tr bgcolor="#04AA6D">
         <th><font color="white">ID</font></th>
         <th><font color="white">북마크 이름</font></th>
+        <th><font color="white">순서</font></th>
         <th><font color="white">등록 일자</font></th>
         <th><font color="white">수정 일자</font></th>
         <th><font color="white">비고</font></th>
@@ -61,11 +62,20 @@
     <tr>
             <% for(ResponseBookmarkList bookmarkGroupLists : bookmarkGroupList) { %>
     <tr>
-        <td><%= bookmarkGroupLists.getID()%>km</td >
+        <td><%= bookmarkGroupLists.getID()%></td >
         <td id="MGR_NO"><%= bookmarkGroupLists.getName()%></td >
         <td><%= bookmarkGroupLists.getNUM() %> </td>
         <td><%= bookmarkGroupLists.getCREATED_TIME()%> </td>
         <td><%=bookmarkGroupLists.getFIXED_TIME()%></td>
+        <td><a href="bookmarkGroupFix.jsp?id=<%= bookmarkGroupLists.getID() %>">수정</a>
+            <form method="post" action="bookmarkGroupDeleteOk.jsp">
+                <input type="hidden" name="bookmarkId" value="<%= bookmarkGroupLists.getID() %>">
+                <input type="submit" value="삭제">
+            </form>
+        </td>
+
+
+
     </tr>
     <% }%>
     </tr>
