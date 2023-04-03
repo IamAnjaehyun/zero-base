@@ -48,13 +48,13 @@
     }
 %>
 
-<select>
+<select name="listName" id="listName">
   <option value="">북마크 그룹 이름 선택</option>
   <% for(ResponseBookmarkList bookmark : bookmarkLists) { %>
   <option name="listName" id="listName" value="<%= bookmark.getName() %>"><%= bookmark.getName() %></option>
   <% } %>
 </select>
-<button onclick="addWifiInfoToBookmark('<%=resWifi.get(0).getX_SWIFI_MGR_NO()%>')">북마크 추가하기</button>
+<button onclick="addWifiInfoToBookmark('<%=resWifi.get(0).getX_SWIFI_MGR_NO()%>',document.querySelector('#listName').value)">북마크 추가하기</button>
 
 <form>
 
@@ -115,10 +115,12 @@
 
       let form = document.createElement('form');
       form.setAttribute("charset","UTF-8");
-      form.setAttribute("method","Post");
-      form.setAttribute("action","<%=request.getContextPath()%>/bookmark/bookmarkWifiInfoAdd.jsp")
+      form.setAttribute("method","POST");
+      <%--form.setAttribute("action",'<%=request.getContextPath()%>/bookmark/bookmarkWifiInfoAdd.jsp')--%>
+    form.setAttribute('action', '<%=request.getContextPath()%>/bookmark/bookmarkWifiInfoAdd.jsp');
 
-      let mgrNoInput = document.createElement("input");
+
+    let mgrNoInput = document.createElement("input");
       mgrNoInput.setAttribute("type","hidden");
       mgrNoInput.setAttribute("name","mgrNo");
       mgrNoInput.setAttribute("value",mgrNo);
@@ -128,8 +130,8 @@
       listNameInput.setAttribute("name","listName");
       listNameInput.setAttribute("value",listName);
 
-      form.append(mgrNoInput);
-      form.append(listNameInput);
+      form.appendChild(mgrNoInput);
+      form.appendChild(listNameInput);
       //body에 동적으로 생성한 form 데이터를 추가한다.
 
       document.body.appendChild(form);
