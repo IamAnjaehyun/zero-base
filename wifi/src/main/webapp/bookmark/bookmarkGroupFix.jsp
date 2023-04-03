@@ -34,10 +34,9 @@
 <%
     request.setCharacterEncoding("utf-8");
     String name = request.getParameter("name");
-    String num = request.getParameter("orderNum");
-    String id = request.getParameter("id"); // 수정할 데이터의 Primary Key 값
+    int num = Integer.parseInt(request.getParameter("num"));
 
-    if (name != null && num != null && !name.equals("") && !num.equals("") && id != null && !id.equals("")) {
+    if (name != null && request.getParameter("num") != null && !name.equals("") && !request.getParameter("num").equals("")) {
         PreparedStatement pstmt;
         Connection conn = null;
         request.setCharacterEncoding("utf-8");
@@ -49,17 +48,39 @@
             conn = DriverManager.getConnection(url);
 
             // 데이터 수정
-            String sql = "update BOOKMARKLIST set NAME=?, NUM=?, FIXED_TIME=? where ID=?";
+            String sql = "UPDATE BOOKMARKLIST SET NAME=?, NUM=?, FIXED_TIME=? WHERE ID=?";
             pstmt = conn.prepareStatement(sql);
+
+            // 매개변수에 값을 전달합니다.
             pstmt.setString(1, name);
-            pstmt.setInt(2, Integer.parseInt(num));
+            pstmt.setInt(2, num);
             pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            pstmt.setInt(4, Integer.parseInt(id));
-            pstmt.executeUpdate();
-            pstmt.close();
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
+            // SQL문을 실행합니다.
+            int result = pstmt.executeUpdate();
+
+            if (result == 1) {
+                // 수정이 성공했을 경우
+                response.sendRedirect(request.getContextPath() + "/bookmark/bookmarkList.jsp");
+            } else {
+                // 수정이 실패했을 경우
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to edit bookmark.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to edit bookmark: " + e.getMessage());
+        } finally {
+            try {
+                // 데이터베이스 연결과 PreparedStatement 객체를 닫습니다.
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
     }
 
 %>
@@ -68,10 +89,10 @@
     <form action="bookmarkUpdate" method="post">
         <!-- hidden 타입으로 수정할 북마크의 ID 값을 전송합니다. -->
         <input type="hidden" name="bookmarkId" value="<%= bookmark.getBOOKMARK_ID() %>">
-        <label for="NAME">북마크 이름:</label>
-        <input type="text" name="bookmarkName" value="<%= bookmark.getBOOKMARK_NAME() %>"><br>
-        <label for="NUM">와이파이 번호:</label>
-        <input type="text" name="wifiNo" value="<%= bookmark.getWIFI_NO() %>"><br>
+        <label for="name">북마크 이름:</label>
+        <input type="text" name="name" value="<%= bookmark.getBOOKMARK_NAME() %>"><br>
+        <label for="num">와이파이 번호:</label>
+        <input type="text" name="num" value="<%=book() %>"><br>
         <input type="submit" value="수정">
     </form>
     </thead>
