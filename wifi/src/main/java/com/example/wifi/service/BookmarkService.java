@@ -80,7 +80,6 @@ public class BookmarkService {
                         .name(rs.getString("NAME"))
                         .NUM(rs.getInt("NUM"))
                         .CREATED_TIME(rs.getTimestamp("CREATED_TIME"))
-                        .FIXED_TIME(rs.getTimestamp("CREATED_TIME"))
                         .build();
                 responseHistories.add(responseBookmarkList);
             }
@@ -105,7 +104,42 @@ public class BookmarkService {
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
             String sql = "select * from BOOKMARK order by ID";
+
             pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                ResponseBookmark responseBookmark = ResponseBookmark.builder()
+                        .ID(rs.getInt("ID"))
+                        .BOOKMARK_NAME(rs.getString("BOOKMARK_NO"))
+                        .WIFI_NO(rs.getString("WIFI_NO"))
+                        .CREATED_TIME(rs.getTimestamp("CREATED_TIME"))
+                        .build();
+                responseBookmarks.add(responseBookmark);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return responseBookmarks;
+    }
+
+    public List<ResponseBookmark> showOnlyBookmark(int bookmarkId) {
+        List<ResponseBookmark> responseBookmarks = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt=null;
+        ResultSet rs = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            // 데이터베이스 파일 경로
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+
+            // 데이터베이스 연결
+            conn = DriverManager.getConnection(url);
+            String sql = "select * from BOOKMARK where ID = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, bookmarkId);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -134,7 +168,7 @@ public class BookmarkService {
 
             conn = DriverManager.getConnection(url);
 
-            String sql = "delete from BOOKMARK where ID = ?";
+            String sql = "DELETE FROM BOOKMARK where ID = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
@@ -150,4 +184,29 @@ public class BookmarkService {
         }
     }
 
+    public void deleteBookmarkGroup(int id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+            conn = DriverManager.getConnection(url);
+
+            String sql = "DELETE FROM BOOKMARKLIST where ID = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
