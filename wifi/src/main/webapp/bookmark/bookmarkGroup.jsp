@@ -59,23 +59,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-            <% for(ResponseBookmarkList bookmarkGroupLists : bookmarkGroupList) { %>
+        <% for(ResponseBookmarkList bookmarkGroupLists : bookmarkGroupList) { %>
     <tr>
         <td><%= bookmarkGroupLists.getID()%></td >
         <td id="MGR_NO"><%= bookmarkGroupLists.getName()%></td >
         <td><%= bookmarkGroupLists.getNUM() %> </td>
-        <td><%= bookmarkGroupLists.getCREATED_TIME()%> </td>
-        <td><%=bookmarkGroupLists.getFIXED_TIME()%></td>
+        <td><%= bookmarkGroupLists.getCREATED_TIME()%></td>
+        <td><%= bookmarkGroupLists.getFIXED_TIME()%></td>
         <td><a href="bookmarkGroupFix.jsp?id=<%= bookmarkGroupLists.getID() %>">수정</a>
             <form method="post" action="bookmarkGroupDeleteOk.jsp">
                 <input type="hidden" name="bookmarkId" value="<%= bookmarkGroupLists.getID() %>">
-                <input type="submit" value="삭제">
+                <a type="submit" value="삭제"></a>
             </form>
         </td>
-
-
-
     </tr>
     <% }%>
     </tr>
