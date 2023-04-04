@@ -62,6 +62,7 @@ public class BookmarkService {
                         .name(rs.getString("NAME"))
                         .NUM(rs.getInt("NUM"))
                         .CREATED_TIME(rs.getTimestamp("CREATED_TIME"))
+                        .FIXED_TIME(rs.getTimestamp("FIXED_TIME"))
                         .build();
                 responseHistories.add(responseBookmarkList);
             }
@@ -196,7 +197,7 @@ public class BookmarkService {
         }
     }
 
-    //북마크 그룹 수정
+    //북마크 그룹 수
     public void fixBookmarkGroup(int id, String name, int num) {
         Connection conn = null;
         PreparedStatement pstmt = null;
