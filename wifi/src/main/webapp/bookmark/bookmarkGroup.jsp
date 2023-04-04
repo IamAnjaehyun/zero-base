@@ -16,11 +16,7 @@
 <html>
 <head>
     <title>JaeHyun</title>
-    <style>
-        .divbox {
-            display: inline-flex;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 
 <body>

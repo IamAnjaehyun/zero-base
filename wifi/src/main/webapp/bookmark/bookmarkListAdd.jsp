@@ -10,6 +10,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Jaehyun</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
 <body>
 <h1><%= "북마크 추가" %>
 </h1>
@@ -67,17 +71,17 @@
         <table>
             <thead>
             <tr>
-                <td bgcolor="#04AA6D">북마크 이름</td>
+                <th bgcolor="#04AA6D"><font color="white">북마크 이름</font></th>
                 <td><input type="text" id="name" name="name" placeholder="제목을 입력하세요."></td>
             </tr>
             <tr>
-                <td bgcolor="#04AA6D">순서</td>
+                <th bgcolor="#04AA6D"><font color="white">순서</font></th>
                 <td><input type="text" id="orderNum" name="orderNum" placeholder="숫자 형태로 입력해주세요."></td>
             </tr>
             <tr>
-                <td colspan="2">
+                <th colspan="2">
                     <input type="submit" onclick="getNameId();" value="추가">
-                </td>
+                </th>
             </tr>
             </thead>
         </table>

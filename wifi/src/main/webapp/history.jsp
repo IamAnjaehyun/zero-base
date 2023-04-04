@@ -2,10 +2,12 @@
 <%@ page import="com.example.wifi.dto.response.ResponseHistory" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <%
     WifiService service = new WifiService();

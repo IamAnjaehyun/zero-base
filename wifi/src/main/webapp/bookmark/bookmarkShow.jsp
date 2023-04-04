@@ -11,12 +11,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>JaeHyun</title>
-    <style>
-        .divbox {
-            display: inline-flex;
-        }
-    </style>
+    <title>Jaehyun</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <h1><%= "북마크 목록" %></h1>
 </br>
@@ -29,7 +25,6 @@
 <%
     request.setCharacterEncoding("utf-8");
     BookmarkService service = new BookmarkService();
-    ResponseBookmark responseBookmark = new ResponseBookmark();
     List<ResponseBookmark> bookmarkList = service.showBookmark();
 %>
 <body>
@@ -51,7 +46,6 @@
         <td id="MGR_NO"><%= bookmarkLists.getBOOKMARK_NAME()%></td >
         <td><%= bookmarkLists.getWIFI_NO() %> </td>
         <td><%= bookmarkLists.getCREATED_TIME()%> </td>
-
         <td><a href="bookmarkDelete.jsp?ID=<%=bookmarkLists.getID()%>">삭제</a></td>
 
     </tr>

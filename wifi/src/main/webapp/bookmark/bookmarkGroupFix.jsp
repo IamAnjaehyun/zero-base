@@ -11,11 +11,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<style>
-    .divbox {
-        display: inline-flex;
-    }
-</style>
+<head>
+    <title>JaeHyun</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
 <body>
 <h1><%= "북마크 크룹 수정" %>
 </h1>

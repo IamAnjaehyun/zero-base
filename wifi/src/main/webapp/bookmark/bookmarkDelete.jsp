@@ -11,10 +11,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>JaeHyun</title>
+    <title>Jaehyun</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
   <style>
-    .divbox {
-      display: inline-flex;
+    input{
+      width: 90%;
+      height: 90%;
+      align-content: center;
     }
   </style>
 </head>

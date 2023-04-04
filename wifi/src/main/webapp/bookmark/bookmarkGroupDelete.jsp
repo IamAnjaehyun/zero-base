@@ -4,12 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>JaeHyun</title>
-    <style>
-        .divbox {
-            display: inline-flex;
-        }
-    </style>
+    <title>Jaehyun</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <h1><%= "북마크 삭제" %></h1>
 </br>

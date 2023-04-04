@@ -8,11 +8,7 @@
 <html>
 <head>
     <title>JaeHyun</title>
-    <style>
-        .divbox {
-            display: inline-flex;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <h1><%= "와이파이 정보 구하기" %>
 
