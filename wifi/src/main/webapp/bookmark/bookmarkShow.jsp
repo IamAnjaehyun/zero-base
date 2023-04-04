@@ -51,6 +51,7 @@
         <td id="MGR_NO"><%= bookmarkLists.getBOOKMARK_NAME()%></td >
         <td><%= bookmarkLists.getWIFI_NO() %> </td>
         <td><%= bookmarkLists.getCREATED_TIME()%> </td>
+
         <td><a href="bookmarkDelete.jsp?ID=<%=bookmarkLists.getID()%>">삭제</a></td>
 
     </tr>
