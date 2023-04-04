@@ -13,13 +13,6 @@
 <head>
     <title>Jaehyun</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
-  <style>
-    input{
-      width: 90%;
-      height: 90%;
-      align-content: center;
-    }
-  </style>
 </head>
 <h1><%= "북마크 삭제" %></h1>
 </br>
