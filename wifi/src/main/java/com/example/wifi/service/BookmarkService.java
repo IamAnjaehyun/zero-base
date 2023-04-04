@@ -4,32 +4,12 @@ import com.example.wifi.dto.response.ResponseBookmark;
 import com.example.wifi.dto.response.ResponseBookmarkList;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarkService {
-    //  bookmarkListAdd.jsp 안으로 이동
-//    public void addBookMarkList(RequestBookmarkList requestBookmarkList) {
-//        PreparedStatement pstmt;
-//        Connection conn = null;
-//
-//        try {
-//            Class.forName("org.sqlite.JDBC");
-//            String url = "jdbc:sqlite:C:/sqllite/test.db";
-//            conn = DriverManager.getConnection(url);
-//
-//            // 테이블 생성 후 데이터 삽입
-//            String sql = "insert into BOOKMARKLIST (NAME, ID) values (?, ?)";
-//            pstmt = conn.prepareStatement(sql);
-//            pstmt.setString(1, requestBookmarkList.getName());
-//            pstmt.setInt(2, requestBookmarkList.getId());
-//            pstmt.executeUpdate();
-//            System.out.println(pstmt);
-//            pstmt.close();
-//        } catch (SQLException | ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    //북마크 저장시 셀렉트 태그에 나열
     public List<ResponseBookmarkList> showBookmarkList() {
         List<ResponseBookmarkList> responseHistories = new ArrayList<>();
 
@@ -58,6 +38,8 @@ public class BookmarkService {
         }
         return responseHistories;
     }
+
+    //북마크 그룹페이지에서 호출
     public List<ResponseBookmarkList> showBookmarkGroupList() {
         List<ResponseBookmarkList> responseHistories = new ArrayList<>();
 
@@ -90,6 +72,7 @@ public class BookmarkService {
         return responseHistories;
     }
 
+    //저장된 북마크들 호출
     public List<ResponseBookmark> showBookmark() {
         List<ResponseBookmark> responseBookmarks = new ArrayList<>();
         Connection conn = null;
@@ -124,10 +107,11 @@ public class BookmarkService {
         return responseBookmarks;
     }
 
+    //북마크 수정시 페이지에 정보 나타내기 위함
     public List<ResponseBookmark> showOnlyBookmark(int bookmarkId) {
         List<ResponseBookmark> responseBookmarks = new ArrayList<>();
         Connection conn = null;
-        PreparedStatement pstmt=null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -158,6 +142,7 @@ public class BookmarkService {
         return responseBookmarks;
     }
 
+    //북마크 삭제
     public void deleteBookmark(int id) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -184,6 +169,7 @@ public class BookmarkService {
         }
     }
 
+    //북마크 그룹 삭제
     public void deleteBookmarkGroup(int id) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -207,6 +193,36 @@ public class BookmarkService {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    //북마크 그룹 수정
+    public void fixBookmarkGroup(int id, String name, int num) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
+
+            conn = DriverManager.getConnection(url);
+
+            // 데이터 수정
+            String sql = "UPDATE BOOKMARKLIST SET NAME=?, NUM=?, FIXED_TIME=? WHERE ID=?";
+            pstmt = conn.prepareStatement(sql);
+
+            // 매개변수에 값을 전달합니다.
+            pstmt.setString(1, name);
+            pstmt.setInt(2, num);
+            pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            pstmt.setInt(4, id);
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            conn.close();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }
