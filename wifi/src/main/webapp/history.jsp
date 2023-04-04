@@ -9,7 +9,6 @@
 </head>
 <%
     WifiService service = new WifiService();
-    ResponseHistory responseHistory = new ResponseHistory();
     List<ResponseHistory> historyList = service.showHistory();
 %>
 <body>

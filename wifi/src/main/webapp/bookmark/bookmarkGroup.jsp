@@ -36,9 +36,7 @@
 <%
     request.setCharacterEncoding("utf-8");
     BookmarkService bookmarkService = new BookmarkService();
-    List<ResponseBookmarkList> bookmarkLists = bookmarkService.showBookmarkList(); // bookmarkService에서 bookmarklist 테이블에서 name 값을 가져오는 메소드
     List<ResponseBookmarkList> bookmarkGroupList = bookmarkService.showBookmarkGroupList(); // bookmarkService에서 bookmarklist 테이블에서 name 값을 가져오는 메소드
-    request.setAttribute("nameList", bookmarkLists);
 %>
 
 <button onclick="location.href='bookmarkListAdd.jsp'">북마크 추가하기</button>
@@ -56,6 +54,7 @@
         <th><font color="white">등록 일자</font></th>
         <th><font color="white">수정 일자</font></th>
         <th><font color="white">비고</font></th>
+        <th rowspan="2"></th>
     </tr>
     </thead>
     <tbody>
@@ -67,14 +66,14 @@
         <td><%= bookmarkGroupLists.getCREATED_TIME()%></td>
         <td><%= bookmarkGroupLists.getFIXED_TIME()%></td>
         <td><a href="bookmarkGroupFix.jsp?id=<%= bookmarkGroupLists.getID() %>">수정</a>
+<%--            <a href="bookmarkDeleteOk.jsp?bookmarkId=<%= bookmarkGroupLists.getID() %>">삭제</a>--%>
             <form method="post" action="bookmarkGroupDeleteOk.jsp">
                 <input type="hidden" name="bookmarkId" value="<%= bookmarkGroupLists.getID() %>">
-                <a type="submit" value="삭제"></a>
+                <input type="submit" value="삭제">
             </form>
         </td>
     </tr>
     <% }%>
-    </tr>
     </tbody>
 </table>
 <tr>

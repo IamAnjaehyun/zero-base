@@ -42,6 +42,8 @@
     <th><font color="white">북마크 이름</font></th>
     <th><font color="white">와이파이명</font></th>
     <th><font color="white">등록일자</font></th>
+    <th><font color="white">비고</font></th>
+
   </tr>
   </thead>
   <tbody>
