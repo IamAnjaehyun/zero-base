@@ -22,12 +22,15 @@
 <a href="bookmark/bookmarkShow.jsp">북마크 보기</a>|
 <a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
 </br>
-
+<%
+    float lat = Float.parseFloat(request.getParameter("lat"));
+    float lnt = Float.parseFloat(request.getParameter("lnt"));
+%>
 <div class="divbox">
     <%--    아직 index.jsp--%>
-    <form action="list.jsp" method="get">
-        LAT : <input type="text" id="lat" , name="lat" value="0.0"> ,
-        LNT : <input type="text" id="lnt" , name="lnt" value="0.0">
+    <form action="list.jsp" method="post">
+        LAT : <input type="text" id="lat" , name="lat" value=<%=lat%>> ,
+        LNT : <input type="text" id="lnt" , name="lnt" value=<%=lnt%>>
         <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
     </form>
     <button onclick="getLocation();">내 위치 가져오기</button>
@@ -61,8 +64,6 @@
     }
 </script>
 <%
-    float lat = Float.parseFloat(request.getParameter("lat"));
-    float lnt = Float.parseFloat(request.getParameter("lnt"));
 
     RequestHistory requestHistory = null;
 

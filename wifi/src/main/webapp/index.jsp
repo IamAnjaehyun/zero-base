@@ -24,13 +24,12 @@
     WifiService service = new WifiService();
 %>
 <div class="divbox">
-<%--    아직 index.jsp--%>
     <form action="list.jsp" method="post">
         LAT : <input type="text" id="lat" , name="lat" value="0.0"> ,
         LNT : <input type="text" id="lnt" , name="lnt" value="0.0">
         <input onclick="getWifi();" type="submit" value="근처 WIFI 정보 보기">
     </form>
-    <button onclick="getLocation();">내 위치 가져오기</button>
+        <button onclick="getLocation();">내 위치 가져오기</button>
 </div>
 
 <script>
@@ -54,6 +53,8 @@
         let lnt = document.getElementById("lnt").value;
         if (lat === "" || lnt === "") {
             alert("비어있는 값 존재.");
+        }else {
+            document.forms[0].submit();
         }
     }
 </script>
