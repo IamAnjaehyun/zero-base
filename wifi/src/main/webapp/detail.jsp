@@ -57,51 +57,28 @@
 </form>
 <table>
   <thead>
-  <tr bgcolor="#04AA6D">
-    <th><font color="white">거리(km)</font></th>
-    <th><font color="white">관리번호</font></th>
-    <th><font color="white">자치구</font></th>
-    <th><font color="white">와이파이명</font></th>
-    <th><font color="white">도로명주소</font></th>
-    <th><font color="white">상세주소</font></th>
-    <th><font color="white">설치위치(층)</font></th>
-    <th><font color="white">설치유형</font></th>
-    <th><font color="white">설치기관</font></th>
-    <th><font color="white">서비스구분</font></th>
-    <th><font color="white">망종류</font></th>
-    <th><font color="white">설치년도</font></th>
-    <th><font color="white">실내외구분</font></th>
-    <th><font color="white">WIFI접속환경</font></th>
-    <th><font color="white">X좌표</font></th>
-    <th><font color="white">Y좌표</font></th>
-    <th><font color="white">작업일자</font></th>
+    <% for(ResponseWifi responseWifi : resWifi) { %>
+    <tr><th bgcolor="#04AA6D"><font color="white">거리(km)</font></th>      <td><%= responseWifi.getDistance()%>km</td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">관리번호</font></th>       <td id="MGR_NO"><%= responseWifi.getX_SWIFI_MGR_NO()%></td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">자치구</font></th>        <td><%= responseWifi.getX_SWIFI_WRDOFC() %> </td></tr>
+    <tr><th bgcolor="#04AA6D" ><font color="white">도로명주소</font></th>     <td><%= responseWifi.getX_SWIFI_ADRES1() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">와이파이명</font></th>     <td><%= responseWifi.getX_SWIFI_MAIN_NM() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">상세주소</font></th>       <td><%= responseWifi.getX_SWIFI_ADRES2() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">설치위치(층)</font></th>   <td><%= responseWifi.getX_SWIFI_INSTL_FLOOR() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">설치유형</font></th>      <td><%= responseWifi.getX_SWIFI_INSTL_TY() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">설치기관</font></th>      <td><%= responseWifi.getX_SWIFI_INSTL_MBY() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">서비스구분</font></th>    <td><%= responseWifi.getX_SWIFI_SVC_SE() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">망종류</font></th>       <td><%= responseWifi.getX_SWIFI_CMCWR() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">설치년도</font></th>     <td><%= responseWifi.getX_SWIFI_CNSTC_YEAR() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">실내외구분</font></th>    <td><%= responseWifi.getX_SWIFI_INOUT_DOOR() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">WIFI접속환경</font></th> <td><%= responseWifi.getX_SWIFI_REMARS3() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">X좌표</font></th>       <td><%= responseWifi.getLAT() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">Y좌표</font></th>       <td><%= responseWifi.getLNT() %> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">작업일자</font></th>     <td><%= responseWifi.getWORK_DTTM() %> </td></tr>
+    <% }%>
+
   </tr>
   </thead>
-  <tbody>
-  <tr>
-      <% for(ResponseWifi responseWifi : resWifi) { %>
-  <tr>
-    <td><%= responseWifi.getDistance()%>km</td >
-    <td id="MGR_NO"><%= responseWifi.getX_SWIFI_MGR_NO()%></td >
-    <td><%= responseWifi.getX_SWIFI_WRDOFC() %> </td>
-    <td><%= responseWifi.getX_SWIFI_MAIN_NM() %> </td>
-    <td><%= responseWifi.getX_SWIFI_ADRES1() %> </td>
-    <td><%= responseWifi.getX_SWIFI_ADRES2() %> </td>
-    <td><%= responseWifi.getX_SWIFI_INSTL_FLOOR() %> </td>
-    <td><%= responseWifi.getX_SWIFI_INSTL_TY() %> </td>
-    <td><%= responseWifi.getX_SWIFI_INSTL_MBY() %> </td>
-    <td><%= responseWifi.getX_SWIFI_SVC_SE() %> </td>
-    <td><%= responseWifi.getX_SWIFI_CMCWR() %> </td>
-    <td><%= responseWifi.getX_SWIFI_CNSTC_YEAR() %> </td>
-    <td><%= responseWifi.getX_SWIFI_INOUT_DOOR() %> </td>
-    <td><%= responseWifi.getX_SWIFI_REMARS3() %> </td>
-    <td><%= responseWifi.getLAT() %> </td>
-    <td><%= responseWifi.getLNT() %> </td>
-    <td><%= responseWifi.getWORK_DTTM() %> </td>
-  </tr>
-  <% }%>
-  </tr>
-  </tbody>
 </table>
 <script type="text/javascript">
   function addWifiInfoToBookmark(mgrNo){
