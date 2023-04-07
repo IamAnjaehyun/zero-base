@@ -20,9 +20,6 @@
 <a href="bookmark/bookmarkShow.jsp">북마크 보기</a>|
 <a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
 </br>
-<%
-    WifiService service = new WifiService();
-%>
 <div class="divbox">
     <form action="list.jsp" method="post">
         LAT : <input type="text" id="lat" , name="lat" value="0.0"> ,

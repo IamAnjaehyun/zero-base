@@ -31,7 +31,7 @@
             conn = DriverManager.getConnection(url);
 
             // SQL query 작성
-            String sql = "INSERT INTO bookmark (BOOKMARK_NO, WIFI_NO, CREATED_TIME) VALUES (?, ? ,?)";
+            String sql = "INSERT INTO bookmark (BOOKMARK_NO, WIFI_NO, CREATED_TIME) VALUES (?, (SELECT X_SWIFI_MAIN_NM FROM WIFI WHERE X_SWIFI_MGR_NO = ?) ,?)";
             // Prepare statement 생성
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, selectedBookmarkList);
