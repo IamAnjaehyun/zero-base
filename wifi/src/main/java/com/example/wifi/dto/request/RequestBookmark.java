@@ -3,7 +3,7 @@ package com.example.wifi.dto.request;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,8 +12,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode()
 public class RequestBookmark {
     int ID ;
-    String WIFI_NO;
-    String BOOKMARK_NO;
+    String WIFI_NAME;
+    String BOOKMARK_NAME;
     Timestamp CREATED_TIME;
-    Timestamp FIX_TIME;
 }
