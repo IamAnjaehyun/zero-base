@@ -181,11 +181,17 @@ public class BookmarkService {
         try {
             Class.forName("org.sqlite.JDBC");
             String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
-
             conn = DriverManager.getConnection(url);
 
-            String sql = "DELETE FROM BOOKMARKLIST where ID = ?";
-            pstmt = conn.prepareStatement(sql);
+            // 해당 BookmarkList의 ID를 참조하는 Bookmark들을 모두 삭제
+            String sql1 = "DELETE FROM BOOKMARK WHERE LIST_ID = ?";
+            pstmt = conn.prepareStatement(sql1);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+            // 해당 BookmarkList 삭제
+            String sql2 = "DELETE FROM BOOKMARKLIST WHERE ID = ?";
+            pstmt = conn.prepareStatement(sql2);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
