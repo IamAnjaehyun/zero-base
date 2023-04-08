@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WifiService {
+    //Open API 와이파이 정보 가져오기
     public void saveWifi(RequestWifi requestWifi) {
         PreparedStatement pstmt;
         Connection conn = null;
@@ -61,7 +62,7 @@ public class WifiService {
             }
         }
     }
-
+    //히스토리 저장
     public void saveHistory(RequestHistory requestHistory) {
         PreparedStatement pstmt = null;
         Connection conn = null;
@@ -107,7 +108,7 @@ public class WifiService {
             }
         }
     }
-
+    //히스토리 호출
     public List<ResponseHistory> showHistory() {
         List<ResponseHistory> responseHistories = new ArrayList<>();
 
@@ -141,7 +142,7 @@ public class WifiService {
         }
         return responseHistories;
     }
-
+    //히스토리 삭제
     public void deleteHistory(int id) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -167,64 +168,7 @@ public class WifiService {
             }
         }
     }
-
-    public List<ResponseWifi> getNearbyLocations(float lat, float lnt) throws SQLException {
-        List<ResponseWifi> result = new ArrayList<>();
-
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            Class.forName("org.sqlite.JDBC");
-            // 데이터베이스 파일 경로
-            String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
-
-
-            // 데이터베이스 연결
-            conn = DriverManager.getConnection(url);
-            String sql = "SELECT * FROM WIFI WHERE lat BETWEEN ? AND ? AND lnt BETWEEN ? AND ? ORDER BY SQRT(POWER(ABS(lat - ?), 2) + POWER(ABS(lnt - ?), 2)) LIMIT 20";
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            pstmt.setDouble(1, lat - 0.1);
-            pstmt.setDouble(2, lat + 0.1);
-            pstmt.setDouble(3, lnt - 0.1);
-            pstmt.setDouble(4, lnt + 0.1);
-            pstmt.setDouble(5, lat);
-            pstmt.setDouble(6, lnt);
-
-            while (rs.next()) {
-                float lat2 = rs.getFloat("lat");
-                float lng2 = rs.getFloat("lng");
-
-                ResponseWifi responseWifi = ResponseWifi.builder()
-                        .X_SWIFI_MGR_NO(rs.getString("X_SWIFI_MGR_NO"))
-                        .X_SWIFI_WRDOFC(rs.getString("X_SWIFI_WRDOFC"))
-                        .X_SWIFI_MAIN_NM(rs.getString("X_SWIFI_MAIN_NM"))
-                        .X_SWIFI_ADRES1(rs.getString("X_SWIFI_ADRES1"))
-                        .X_SWIFI_ADRES2(rs.getString("X_SWIFI_ADRES2"))
-                        .X_SWIFI_INSTL_FLOOR(rs.getString("X_SWIFI_INSTL_FLOOR"))
-                        .X_SWIFI_INSTL_TY(rs.getString("X_SWIFI_INSTL_TY"))
-                        .X_SWIFI_INSTL_MBY(rs.getString("X_SWIFI_INSTL_MBY"))
-                        .X_SWIFI_SVC_SE(rs.getString("X_SWIFI_SVC_SE"))
-                        .X_SWIFI_CMCWR(rs.getString("X_SWIFI_CMCWR"))
-                        .X_SWIFI_CNSTC_YEAR(rs.getString("X_SWIFI_CNSTC_YEAR"))
-                        .X_SWIFI_INOUT_DOOR(rs.getString("X_SWIFI_INOUT_DOOR"))
-                        .X_SWIFI_REMARS3(rs.getString("X_SWIFI_REMARS3"))
-                        .LAT(rs.getFloat("LAT"))
-                        .LNT(rs.getFloat("LNT"))
-                        .WORK_DTTM(Timestamp.valueOf(String.valueOf(rs.getTimestamp("WORK_DTTM").getTime())))
-                        .build();
-
-                result.add(responseWifi);
-            }
-
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return result;
-    }
-
+    //list.jsp에 WIFI 20개 호출
     public List<ResponseWifi> showWifi(float myLat, float myLnt) throws SQLException {
         List<ResponseWifi> show20 = new ArrayList<>();
 
@@ -287,7 +231,7 @@ public class WifiService {
 
         return show20;
     }
-
+    //detail.jsp(상세보기)
     public List<ResponseWifi> showDetail(String mgrNo, float distance) throws SQLException {
         List<ResponseWifi> showDetail = new ArrayList<>();
 

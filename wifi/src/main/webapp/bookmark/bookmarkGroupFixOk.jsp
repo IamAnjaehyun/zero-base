@@ -16,7 +16,6 @@
 <body>
 <%
     if (request.getMethod().equals("POST")) {
-
         request.setCharacterEncoding("utf-8");
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
