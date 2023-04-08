@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode()
 public class ResponseBookmark {
     int ID ;
+    String LIST_NAME;
     String BOOKMARK_NAME;
     String WIFI_NO;
     Timestamp CREATED_TIME;

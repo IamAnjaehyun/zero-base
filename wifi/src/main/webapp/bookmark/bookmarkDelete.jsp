@@ -34,33 +34,26 @@
 북마크를 삭제하시겠습니까?
 <table>
   <thead>
-  <tr bgcolor="#04AA6D">
-    <th><font color="white">북마크 이름</font></th>
-    <th><font color="white">와이파이명</font></th>
-    <th><font color="white">등록일자</font></th>
-    <th><font color="white">비고</font></th>
-
-  </tr>
+    <% for(ResponseBookmark bookmarkLists : bookmarkList) { %>
+    <tr><th bgcolor="#04AA6D"><font color="white">북마크 이름</font></th>    <td><%= bookmarkLists.getBOOKMARK_NAME()%></td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">와이파이명</font></th>     <td><%= bookmarkLists.getWIFI_NO()%> </td></tr>
+    <tr><th bgcolor="#04AA6D"><font color="white">등록일자</font></th>      <td><%= bookmarkLists.getCREATED_TIME()%> </td></tr>
+    <tr>
+        <td colspan="2" align="center">
+            <a href="bookmarkGroup.jsp">돌아가기</a> |
+                <form method="post" action="bookmarkDeleteOk.jsp?bookmarkId=<%=bookmarkId%>">
+                    <input type="submit" onclick="deleteOK()" value="삭제">
+                </form>
+        </td>
+    </tr>
+    <% }%>
   </thead>
-  <tbody>
-  <tr>
-      <% for(ResponseBookmark bookmarkLists : bookmarkList) { %>
-  <tr>
-    <td><%= bookmarkLists.getBOOKMARK_NAME()%></td >
-    <td><%= bookmarkLists.getWIFI_NO() %> </td>
-    <td><%= bookmarkLists.getCREATED_TIME()%> </td>
-  <td>
-    <form method="post" action="bookmarkDeleteOk.jsp">
-      <input type="hidden" name="bookmarkId" value="<%= bookmarkLists.getID() %>">
-      <input type="submit" value="삭제">
-    </form>
-  </td>
-  </tr>
-  <% }%>
-  </tr>
-
-
-  </tbody>
 </table>
 </body>
+<script>
+  function deleteOK() {
+    alert("북마크 정보를 삭제하였습니다.");
+    location.reload();
+  }
+</script>
 </html>
