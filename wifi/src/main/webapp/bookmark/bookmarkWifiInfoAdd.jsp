@@ -56,10 +56,12 @@
     <title>Title</title>
 </head>
 <body>
-<div style="text-align: center"><h1>북마크 추가가 완료되었습니다.</h1></div>
-
-<div style="text-align: center"><a href="bookmarkShow.jsp">북마크 보러가기</a></div>
-
-
+<script>
+    function bookmarkSaveOk(){
+        alert("북마크 정보를 추가하였습니다.");
+        window.location.href="bookmarkShow.jsp";
+    }
+bookmarkSaveOk();
+</script>
 </body>
 </html>
