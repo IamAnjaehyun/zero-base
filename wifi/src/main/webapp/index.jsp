@@ -11,15 +11,14 @@
 </head>
 
 <body>
-<h1><%= "와이파이 정보 구하기" %>
-</h1>
-</br>
+<h1><%= "와이파이 정보 구하기" %></h1>
+
 <a href="index.jsp">홈</a> |
 <a href="history.jsp">위치 히스토리 목록</a> |
 <a href="save.jsp">Open API 와이파이 정보 가져오기</a>|
 <a href="bookmark/bookmarkShow.jsp">북마크 보기</a>|
 <a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
-</br>
+</br></br>
 <div class="divbox">
     <form action="list.jsp" method="post">
         LAT : <input type="text" id="lat" , name="lat" value="0.0"> ,

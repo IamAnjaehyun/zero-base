@@ -10,18 +10,14 @@
     <title>JaeHyun</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<h1><%= "와이파이 정보 구하기" %>
-
+<h1><%= "와이파이 정보 구하기" %></h1>
 <body>
-<%--<h1><%= "와이파이 정보 보기" %>--%>
-</h1>
-</br>
 <a href="index.jsp">홈</a> |
 <a href="history.jsp">위치 히스토리 목록</a> |
 <a href="save.jsp">Open API 와이파이 정보 가져오기</a>|
 <a href="bookmark/bookmarkShow.jsp">북마크 보기</a>|
 <a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
-</br>
+</br></br>
 <%
     float lat = Float.parseFloat(request.getParameter("lat"));
     float lnt = Float.parseFloat(request.getParameter("lnt"));

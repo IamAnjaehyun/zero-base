@@ -12,17 +12,15 @@
   <title>JaeHyun</title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-
 <body>
-<h1><%= "와이파이 정보 구하기" %>
-</h1>
-</br>
+<h1><%= "와이파이 정보 구하기" %></h1>
 <a href="index.jsp">홈</a> |
 <a href="history.jsp">위치 히스토리 목록</a> |
 <a href="save.jsp">Open API 와이파이 정보 가져오기</a>|
 <a href="bookmark/bookmarkShow.jsp">북마크 보기</a>|
 <a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
-</br>
+</br></br>
+
 <%
   request.setCharacterEncoding("utf-8");
   BookmarkService bookmarkService = new BookmarkService();
@@ -52,11 +50,7 @@
 </select>
 <button onclick="addWifiInfoToBookmark('<%=resWifi.get(0).getX_SWIFI_MGR_NO()%>',document.querySelector('#listName').value)">북마크 추가하기</button>
 
-<form>
-
-</form>
 <table>
-  <thead>
     <% for(ResponseWifi responseWifi : resWifi) { %>
     <tr><th bgcolor="#04AA6D"><font color="white">거리(km)</font></th>      <td><%= responseWifi.getDistance()%>km</td></tr>
     <tr><th bgcolor="#04AA6D"><font color="white">관리번호</font></th>       <td id="MGR_NO"><%= responseWifi.getX_SWIFI_MGR_NO()%></td></tr>
@@ -76,9 +70,6 @@
     <tr><th bgcolor="#04AA6D"><font color="white">Y좌표</font></th>       <td><%= responseWifi.getLNT() %> </td></tr>
     <tr><th bgcolor="#04AA6D"><font color="white">작업일자</font></th>     <td><%= responseWifi.getWORK_DTTM() %> </td></tr>
     <% }%>
-
-  </tr>
-  </thead>
 </table>
 <script type="text/javascript">
   function addWifiInfoToBookmark(mgrNo){

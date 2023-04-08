@@ -14,15 +14,13 @@
     List<ResponseHistory> historyList = service.showHistory();
 %>
 <body>
-<h1><%= "위치 히스토리 목록" %>
-</h1>
-</br>
+<h1><%= "위치 히스토리 목록" %></h1>
 <a href="index.jsp">홈</a> |
 <a href="history.jsp">위치 히스토리 목록</a> |
 <a href="save.jsp">Open API 와이파이 정보 가져오기</a>|
 <a href="bookmark/bookmarkShow.jsp">북마크 보기</a>|
 <a href="bookmark/bookmarkGroup.jsp">북마크 그룹 관리</a>
-</br>
+</br></br>
 
 <table>
     <thead>
@@ -41,7 +39,7 @@
         <td><%= history.getLAT() %></td>
         <td><%= history.getLNT() %></td>
         <td><%= history.getCREATED_TIME() %></td>
-        <td><button onclick="deleteHistory('<%= history.getID() %>')">삭제</button></td>
+        <td align="center"><button onclick="deleteHistory('<%= history.getID() %>')">삭제</button></td>
     </tr>
     <% } %>
     </tbody>
