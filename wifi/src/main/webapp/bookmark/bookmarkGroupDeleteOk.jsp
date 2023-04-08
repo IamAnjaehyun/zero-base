@@ -13,7 +13,7 @@
 </head>
 <%
     if (request.getMethod().equals("POST")) {
-        int id = Integer.parseInt(request.getParameter("bookmarkId"));
+        int id = Integer.parseInt(request.getParameter("id"));
         BookmarkService bookmarkService = new BookmarkService();
         bookmarkService.deleteBookmarkGroup(id);
         response.sendRedirect("bookmarkGroup.jsp");

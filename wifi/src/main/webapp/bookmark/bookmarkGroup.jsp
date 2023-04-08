@@ -10,6 +10,7 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="com.example.wifi.dto.response.ResponseBookmarkList" %>
 <%@ page import="com.example.wifi.dto.response.ResponseBookmark" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -40,11 +41,8 @@
     }
 %>
 
-<button onclick="location.href='bookmarkListAdd.jsp'">북마크 추가하기</button>
+<button onclick="location.href='bookmarkGroupAdd.jsp'">북마크 추가하기</button>
 
-<script>
-
-</script>
 
 <table>
     <thead>
@@ -66,13 +64,8 @@
         <td><%= bookmarkGroupLists.getNUM() %> </td>
         <td><%= bookmarkGroupLists.getCREATED_TIME()%></td>
         <td><%= bookmarkGroupLists.getFIXED_TIME()%></td>
-        <td><a href="bookmarkGroupFix.jsp?id=<%= bookmarkGroupLists.getID() %>">수정</a>
-            <%--            <a href="bookmarkDeleteOk.jsp?bookmarkId=<%= bookmarkGroupLists.getID() %>">삭제</a>--%>
-            <form method="post" action="bookmarkGroupDeleteOk.jsp">
-                <input type="hidden" name="bookmarkId" value="<%= bookmarkGroupLists.getID() %>">
-                <input type="submit" value="삭제">
-            </form>
-        </td>
+        <td align="center"> <a href="bookmarkGroupFix.jsp?id=<%= bookmarkGroupLists.getID() %>&name=<%= URLEncoder.encode(bookmarkGroupLists.getName(), "UTF-8") %>&num=<%= bookmarkGroupLists.getNUM() %>">수정</a>
+                            <a href="bookmarkGroupDelete.jsp?id=<%= bookmarkGroupLists.getID() %>&name=<%= URLEncoder.encode(bookmarkGroupLists.getName(), "UTF-8") %>&num=<%= bookmarkGroupLists.getNUM() %>">삭제</a></td>
     </tr>
     <% }%>
     <% } else { %>
