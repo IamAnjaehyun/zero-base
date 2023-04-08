@@ -39,17 +39,21 @@
     </tr>
     </thead>
     <tbody>
+    <% if(bookmarkList.isEmpty()) { %>
     <tr>
-            <% for(ResponseBookmark bookmarkLists : bookmarkList) { %>
+        <td colspan="5" rowspan="3" align="center">정보가 존재하지 않습니다.</td>
+    </tr>
+    <% } else { %>
+    <% for(ResponseBookmark bookmarkLists : bookmarkList) { %>
     <tr>
         <td><%= bookmarkLists.getID()%></td >
         <td><%= bookmarkLists.getBOOKMARK_NAME()%></td >
         <td><%= bookmarkLists.getWIFI_NO() %> </td>
         <td><%= bookmarkLists.getCREATED_TIME()%> </td>
-        <td><a href="bookmarkDelete.jsp?ID=<%=bookmarkLists.getID()%>">삭제</a></td>
+        <td align="center"><a href="bookmarkDelete.jsp?ID=<%=bookmarkLists.getID()%>">삭제</a></td>
     </tr>
     <% }%>
-    </tr>
+    <% } %>
     </tbody>
 </table>
 </body>

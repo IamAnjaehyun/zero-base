@@ -31,15 +31,15 @@
         <input type="hidden" name="id" value="<%= request.getParameter("id") %>">
         <tr>
             <td bgcolor="#04AA6D" align="center"><label bgcolor="#04AA6D">북마크 이름</label></td>
-            <td><input type="text" name="name"><br></td>
+            <td><input type="text" name="name" value="<%=request.getParameter("name")%>"><br></td>
         </tr>
         <tr>
             <td bgcolor="#04AA6D" align="center"><label bgcolor="#04AA6D">순서</label></td>
-                <td><input type="text" name="num"><br></td>
+                <td><input type="text" name="num" value="<%=request.getParameter("num")%>"><br></td>
         </tr>
         <tr>
-            <td colspan="2">
-                <input type="submit" onclick="getNameId()" value="수정">
+            <td colspan="2" align="center">
+                <a href="bookmarkGroup.jsp">돌아가기</a> | <input type="submit" onclick="getNameId()" value="수정">
             </td>
         </tr>
 
@@ -53,7 +53,7 @@
         if (name === "" || orderNumStr === "") {
             alert("비어있는 값 존재.");
         }else{
-            alert("수정 성공!")
+            alert("북마크 그룹 정보를 수정하였습니다.");
         }
     }
 </script>

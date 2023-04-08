@@ -75,16 +75,15 @@
   function addWifiInfoToBookmark(mgrNo){
       let listName = document.getElementById('listName').value;
 
-      console.log('param check:::' + mgrNo,listName)
+      console.log('data check' + mgrNo,listName)
 
       let form = document.createElement('form');
       form.setAttribute("charset","UTF-8");
       form.setAttribute("method","POST");
-      <%--form.setAttribute("action",'<%=request.getContextPath()%>/bookmark/bookmarkWifiInfoAdd.jsp')--%>
-    form.setAttribute('action', '<%=request.getContextPath()%>/bookmark/bookmarkWifiInfoAdd.jsp');
+      form.setAttribute('action', '<%=request.getContextPath()%>/bookmark/bookmarkWifiInfoAdd.jsp');
 
 
-    let mgrNoInput = document.createElement("input");
+      let mgrNoInput = document.createElement("input");
       mgrNoInput.setAttribute("type","hidden");
       mgrNoInput.setAttribute("name","mgrNo");
       mgrNoInput.setAttribute("value",mgrNo);
@@ -96,7 +95,7 @@
 
       form.appendChild(mgrNoInput);
       form.appendChild(listNameInput);
-      //body에 동적으로 생성한 form 데이터를 추가한다.
+      //body에 동적으로 생성한 form 데이터를 추가
 
       document.body.appendChild(form);
       //전송
