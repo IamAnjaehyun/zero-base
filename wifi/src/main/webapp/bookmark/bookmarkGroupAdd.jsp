@@ -33,7 +33,8 @@
         if (name === "" || orderNumStr === "") {
             alert("비어있는 값 존재.");
         }else{
-            alert("저장 성공!")
+            alert("북마크 그룹 정보를 추가하였습니다.");
+            location.href="bookmarkGroup.jsp";
         }
     }
 </script>
@@ -90,18 +91,5 @@
     </form>
     </thead>
 </table>
-<script>
-    function saveOk(ID) {
-        if (confirm("정말로 삭제하시겠습니까?")) {
-            $.ajax({
-                url: "history.jsp",
-                data: {id: ID},
-                success: function () {
-                    location.reload();
-                }
-            });
-        }
-    }
-</script>
 </body>
 </html>
