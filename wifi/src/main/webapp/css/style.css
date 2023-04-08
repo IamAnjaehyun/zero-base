@@ -6,9 +6,16 @@ table, th, td {
     border: 1px solid lightgray;
 }
 
+tr {
+    align-content: center;
+}
+
+th {
+    bgcolor: #04AA6D;
+}
+
 table {
     width: 100%;
-    height: 100%;
     border-collapse: collapse;
     border: 1px solid white;
 }
@@ -17,11 +24,12 @@ tr:nth-child(even) {
     background: #f2f2f2;
 }
 
-tr {
-    align-content: center;
+tbody tr:hover {
+    background-color: lightgray
 }
 
-th {
-    bgcolor: #04AA6D;
-    }
+
+input[type="hidden"] {
+    display: none;
+}
 
