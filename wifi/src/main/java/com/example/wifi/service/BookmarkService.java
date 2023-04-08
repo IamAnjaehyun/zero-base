@@ -125,15 +125,17 @@ public class BookmarkService {
 
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
-            String sql = "select * from BOOKMARK where ID = ?";
+            String sql = "SELECT l.NAME, b.WIFI_NAME, b.CREATED_TIME " +
+                    "FROM BOOKMARK b " +
+                    "JOIN BOOKMARKLIST l ON b.LIST_ID = l.ID " +
+                    "WHERE b.ID = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, bookmarkId);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 ResponseBookmark responseBookmark = ResponseBookmark.builder()
-                        .ID(rs.getInt("ID"))
-                        .BOOKMARK_NAME(rs.getString("BOOKMARK_NAME"))
+                        .BOOKMARK_NAME(rs.getString("NAME"))
                         .WIFI_NO(rs.getString("WIFI_NAME"))
                         .CREATED_TIME(rs.getTimestamp("CREATED_TIME"))
                         .build();
@@ -227,18 +229,7 @@ public class BookmarkService {
             pstmt1.setInt(4, id);
             pstmt1.executeUpdate();
 
-//            // BOOKMARK 데이터 수정
-//            String sql2 = "UPDATE BOOKMARK SET BOOKMARK_NAME = ? WHERE BOOKMARK_NAME = (SELECT NAME FROM BOOKMARKLIST WHERE ID = ?)";
-//
-//            pstmt2 = conn.prepareStatement(sql2);
-//
-//            pstmt2.setString(1, name);
-//            pstmt2.setInt(2, id);
-//
-//            pstmt2.executeUpdate();
-
             pstmt1.close();
-//            pstmt2.close();
             conn.close();
 
         } catch (SQLException | ClassNotFoundException e) {
