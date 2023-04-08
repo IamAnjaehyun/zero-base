@@ -32,6 +32,8 @@
         let orderNumStr = document.getElementById("orderNum");
         if (name === "" || orderNumStr === "") {
             alert("비어있는 값 존재.");
+        }else{
+            alert("저장 성공!")
         }
     }
 </script>
@@ -88,12 +90,18 @@
     </form>
     </thead>
 </table>
-
-
-<tr>
-    <%--    북마크 list (수정 + 삭제)--%>
-
-
-</tr>
+<script>
+    function saveOk(ID) {
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "history.jsp",
+                data: {id: ID},
+                success: function () {
+                    location.reload();
+                }
+            });
+        }
+    }
+</script>
 </body>
 </html>

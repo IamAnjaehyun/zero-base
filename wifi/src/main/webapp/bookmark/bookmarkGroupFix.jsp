@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-<h1><%= "북마크 크룹 수정" %>
+<h1><%= "북마크 그룹 수정" %>
 </h1>
 </br>
 <a href="../index.jsp">홈</a> |
@@ -39,12 +39,23 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" value="수정">
+                <input type="submit" onclick="getNameId()" value="수정">
             </td>
         </tr>
 
     </form>
     </thead>
 </table>
+<script>
+    function getNameId() {
+        let name = document.getElementById("name");
+        let orderNumStr = document.getElementById("num");
+        if (name === "" || orderNumStr === "") {
+            alert("비어있는 값 존재.");
+        }else{
+            alert("수정 성공!")
+        }
+    }
+</script>
 </body>
 </html>
