@@ -32,7 +32,12 @@
 <%
     request.setCharacterEncoding("utf-8");
     BookmarkService bookmarkService = new BookmarkService();
-    List<ResponseBookmarkList> bookmarkGroupList = bookmarkService.showBookmarkGroupList(); // bookmarkService에서 bookmarklist 테이블에서 name 값을 가져오는 메소드
+    List<ResponseBookmarkList> bookmarkGroupList = null;
+    try {
+        bookmarkGroupList = bookmarkService.showBookmarkGroupList();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 %>
 
 <button onclick="location.href='bookmarkListAdd.jsp'">북마크 추가하기</button>
@@ -50,11 +55,11 @@
         <th><font color="white">등록 일자</font></th>
         <th><font color="white">수정 일자</font></th>
         <th><font color="white">비고</font></th>
-        <th rowspan="2"></th>
     </tr>
     </thead>
     <tbody>
-        <% for(ResponseBookmarkList bookmarkGroupLists : bookmarkGroupList) { %>
+    <% if (bookmarkGroupList != null) { %>
+    <% for(ResponseBookmarkList bookmarkGroupLists : bookmarkGroupList) { %>
     <tr>
         <td><%= bookmarkGroupLists.getID()%></td >
         <td id="MGR_NO"><%= bookmarkGroupLists.getName()%></td >
@@ -62,7 +67,7 @@
         <td><%= bookmarkGroupLists.getCREATED_TIME()%></td>
         <td><%= bookmarkGroupLists.getFIXED_TIME()%></td>
         <td><a href="bookmarkGroupFix.jsp?id=<%= bookmarkGroupLists.getID() %>">수정</a>
-<%--            <a href="bookmarkDeleteOk.jsp?bookmarkId=<%= bookmarkGroupLists.getID() %>">삭제</a>--%>
+            <%--            <a href="bookmarkDeleteOk.jsp?bookmarkId=<%= bookmarkGroupLists.getID() %>">삭제</a>--%>
             <form method="post" action="bookmarkGroupDeleteOk.jsp">
                 <input type="hidden" name="bookmarkId" value="<%= bookmarkGroupLists.getID() %>">
                 <input type="submit" value="삭제">
@@ -70,6 +75,10 @@
         </td>
     </tr>
     <% }%>
+    <% } else { %>
+    <!-- 북마크리스트가 없을 경우의 코드 -->
+    <% } %>
+
     </tbody>
 </table>
 <tr>
