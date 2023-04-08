@@ -39,12 +39,11 @@
     <tr><th bgcolor="#04AA6D"><font color="white">와이파이명</font></th>     <td><%= bookmarkLists.getWIFI_NO()%> </td></tr>
     <tr><th bgcolor="#04AA6D"><font color="white">등록일자</font></th>      <td><%= bookmarkLists.getCREATED_TIME()%> </td></tr>
     <tr>
+        <form action="bookmarkDeleteOk.jsp?bookmarkId=<%=bookmarkId%>" method="post">
         <td colspan="2" align="center">
-            <a href="bookmarkGroup.jsp">돌아가기</a> |
-                <form method="post" action="bookmarkDeleteOk.jsp?bookmarkId=<%=bookmarkId%>">
-                    <input type="submit" onclick="deleteOK()" value="삭제">
-                </form>
+            <a href="bookmarkGroup.jsp">돌아가기</a> | <input type="submit" onclick="deleteOK()" value="삭제">
         </td>
+        </form>
     </tr>
     <% }%>
   </thead>
