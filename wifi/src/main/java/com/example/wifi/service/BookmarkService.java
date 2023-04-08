@@ -84,10 +84,12 @@ public class BookmarkService {
             // 데이터베이스 파일 경로
             String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
 
-
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
-            String sql = "select * from BOOKMARK order by ID";
+            String sql = "SELECT b.ID, l.NAME, b.WIFI_NAME, b.CREATED_TIME " +
+                    "FROM BOOKMARK b " +
+                    "JOIN BOOKMARKLIST l ON b.LIST_ID = l.ID " +
+                    "ORDER BY b.ID";
 
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
@@ -95,8 +97,8 @@ public class BookmarkService {
             while (rs.next()) {
                 ResponseBookmark responseBookmark = ResponseBookmark.builder()
                         .ID(rs.getInt("ID"))
-                        .BOOKMARK_NAME(rs.getString("BOOKMARK_NO"))
-                        .WIFI_NO(rs.getString("WIFI_NO"))
+                        .BOOKMARK_NAME(rs.getString("NAME"))
+                        .WIFI_NO(rs.getString("WIFI_NAME"))
                         .CREATED_TIME(rs.getTimestamp("CREATED_TIME"))
                         .build();
                 responseBookmarks.add(responseBookmark);
@@ -107,6 +109,7 @@ public class BookmarkService {
         }
         return responseBookmarks;
     }
+
 
     //북마크 수정시 페이지에 정보 나타내기 위함
     public List<ResponseBookmark> showOnlyBookmark(int bookmarkId) {
@@ -130,8 +133,8 @@ public class BookmarkService {
             while (rs.next()) {
                 ResponseBookmark responseBookmark = ResponseBookmark.builder()
                         .ID(rs.getInt("ID"))
-                        .BOOKMARK_NAME(rs.getString("BOOKMARK_NO"))
-                        .WIFI_NO(rs.getString("WIFI_NO"))
+                        .BOOKMARK_NAME(rs.getString("BOOKMARK_NAME"))
+                        .WIFI_NO(rs.getString("WIFI_NAME"))
                         .CREATED_TIME(rs.getTimestamp("CREATED_TIME"))
                         .build();
                 responseBookmarks.add(responseBookmark);
@@ -196,11 +199,11 @@ public class BookmarkService {
             }
         }
     }
-
-    //북마크 그룹 수
+    //북마크 그룹 수정
     public void fixBookmarkGroup(int id, String name, int num) {
         Connection conn = null;
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt1 = null;
+        PreparedStatement pstmt2 = null;
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -208,18 +211,28 @@ public class BookmarkService {
 
             conn = DriverManager.getConnection(url);
 
-            // 데이터 수정
-            String sql = "UPDATE BOOKMARKLIST SET NAME=?, NUM=?, FIXED_TIME=? WHERE ID=?";
-            pstmt = conn.prepareStatement(sql);
+            // BOOKMARKLIST 데이터 수정
+            String sql1 = "UPDATE BOOKMARKLIST SET NAME=?, NUM=?, FIXED_TIME=? WHERE ID=?";
+            pstmt1 = conn.prepareStatement(sql1);
 
-            // 매개변수에 값을 전달합니다.
-            pstmt.setString(1, name);
-            pstmt.setInt(2, num);
-            pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            pstmt.setInt(4, id);
-            pstmt.executeUpdate();
+            pstmt1.setString(1, name);
+            pstmt1.setInt(2, num);
+            pstmt1.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            pstmt1.setInt(4, id);
+            pstmt1.executeUpdate();
 
-            pstmt.close();
+//            // BOOKMARK 데이터 수정
+//            String sql2 = "UPDATE BOOKMARK SET BOOKMARK_NAME = ? WHERE BOOKMARK_NAME = (SELECT NAME FROM BOOKMARKLIST WHERE ID = ?)";
+//
+//            pstmt2 = conn.prepareStatement(sql2);
+//
+//            pstmt2.setString(1, name);
+//            pstmt2.setInt(2, id);
+//
+//            pstmt2.executeUpdate();
+
+            pstmt1.close();
+//            pstmt2.close();
             conn.close();
 
         } catch (SQLException | ClassNotFoundException e) {
