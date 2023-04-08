@@ -32,9 +32,8 @@
         let orderNumStr = document.getElementById("orderNum");
         if (name === "" || orderNumStr === "") {
             alert("비어있는 값 존재.");
-        }else{
+        } else {
             alert("북마크 그룹 정보를 추가하였습니다.");
-            location.href="bookmarkGroup.jsp";
         }
     }
 </script>
@@ -63,6 +62,7 @@
             pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             pstmt.executeUpdate();
             pstmt.close();
+            response.sendRedirect("bookmarkGroup.jsp");
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -70,7 +70,7 @@
 %>
 <table>
     <thead>
-    <form action="bookmarkListAdd.jsp" method="POST">
+    <form action="bookmarkGroupAdd.jsp" method="POST">
         <table>
             <thead>
             <tr>
