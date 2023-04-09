@@ -32,12 +32,13 @@
 
             // SQL query 작성
 //            String sql = "INSERT INTO bookmark (BOOKMARK_NAME, WIFI_NAME, CREATED_TIME) VALUES (?, (SELECT X_SWIFI_MAIN_NM FROM WIFI WHERE X_SWIFI_MGR_NO = ?) ,?)";
-            String sql = "INSERT INTO bookmark (WIFI_NAME, CREATED_TIME, LIST_ID) VALUES ( (SELECT X_SWIFI_MAIN_NM FROM WIFI WHERE X_SWIFI_MGR_NO = ?) ,?, (SELECT ID FROM BOOKMARKLIST WHERE NAME = ?))";
+            String sql = "INSERT INTO bookmark (WIFI_NAME, CREATED_TIME, LIST_ID, MGR_NO) VALUES ( (SELECT X_SWIFI_MAIN_NM FROM WIFI WHERE X_SWIFI_MGR_NO = ?) ,?, (SELECT ID FROM BOOKMARKLIST WHERE NAME = ?),?)";
             // Prepare statement 생성
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, xSwifiMgrNo);
             pstmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
             pstmt.setString(3, selectedBookmarkList);
+            pstmt.setString(4, xSwifiMgrNo);
 
             // Execute query
             pstmt.executeUpdate();

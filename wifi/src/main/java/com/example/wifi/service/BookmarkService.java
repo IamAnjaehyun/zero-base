@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarkService {
-    //북마크 저장시 셀렉트 태그에 나열
+    //북마크리스트 셀렉트 태그에 나열
     public List<ResponseBookmarkList> showBookmarkList() {
         List<ResponseBookmarkList> responseHistories = new ArrayList<>();
 
@@ -52,7 +52,7 @@ public class BookmarkService {
             String url = "jdbc:sqlite:/Users/jaehyun/Desktop/sqlite/wifi.db";
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
-            String sql = "select * from BOOKMARKLIST order by ID asc";
+            String sql = "select * from BOOKMARKLIST order by NUM asc";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
@@ -86,7 +86,7 @@ public class BookmarkService {
 
             // 데이터베이스 연결
             conn = DriverManager.getConnection(url);
-            String sql = "SELECT b.ID, l.NAME, b.WIFI_NAME, b.CREATED_TIME " +
+            String sql = "SELECT b.ID, l.NAME, b.WIFI_NAME, b.CREATED_TIME, b.MGR_NO " +
                     "FROM BOOKMARK b " +
                     "JOIN BOOKMARKLIST l ON b.LIST_ID = l.ID " +
                     "ORDER BY b.ID";
@@ -100,6 +100,7 @@ public class BookmarkService {
                         .BOOKMARK_NAME(rs.getString("NAME"))
                         .WIFI_NO(rs.getString("WIFI_NAME"))
                         .CREATED_TIME(rs.getTimestamp("CREATED_TIME"))
+                        .MGR_NO(rs.getString("MGR_NO"))
                         .build();
                 responseBookmarks.add(responseBookmark);
             }

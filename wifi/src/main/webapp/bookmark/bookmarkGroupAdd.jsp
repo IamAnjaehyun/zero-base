@@ -82,9 +82,9 @@
                 <td><input type="text" id="orderNum" name="orderNum" placeholder="숫자 형태로 입력해주세요."></td>
             </tr>
             <tr>
-                <th colspan="2">
+                <td colspan="2">
                     <input type="submit" onclick="getNameId();" value="추가">
-                </th>
+                </td>
             </tr>
             </thead>
         </table>

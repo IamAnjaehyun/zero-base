@@ -14,5 +14,6 @@ public class ResponseBookmark {
     String LIST_NAME;
     String BOOKMARK_NAME;
     String WIFI_NO;
+    String MGR_NO;
     Timestamp CREATED_TIME;
 }

@@ -14,5 +14,6 @@ public class RequestBookmark {
     int ID ;
     String WIFI_NAME;
     String BOOKMARK_NAME;
+    String MGR_NO;
     Timestamp CREATED_TIME;
 }

@@ -1,19 +1,15 @@
 <%@ page import="com.example.wifi.service.BookmarkService" %>
 <%@ page import="com.example.wifi.dto.response.ResponseBookmark" %>
 <%@ page import="com.example.wifi.dto.response.ResponseHistory" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: ANJH
-  Date: 2023-03-29
-  Time: 오후 3:31
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Jaehyun</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
+<body>
 <h1><%= "북마크 목록" %></h1>
 </br>
 <a href="../index.jsp">홈</a> |
@@ -27,7 +23,6 @@
     BookmarkService service = new BookmarkService();
     List<ResponseBookmark> bookmarkList = service.showBookmark();
 %>
-<body>
 <table>
     <thead>
     <tr bgcolor="#04AA6D">
@@ -41,14 +36,14 @@
     <tbody>
     <% if(bookmarkList.isEmpty()) { %>
     <tr>
-        <td colspan="5" rowspan="3" align="center">정보가 존재하지 않습니다.</td>
+        <td colspan="5" rowspan="3" align="center"><br>정보가 존재하지 않습니다.<br><br></td>
     </tr>
     <% } else { %>
     <% for(ResponseBookmark bookmarkLists : bookmarkList) { %>
     <tr>
         <td><%= bookmarkLists.getID()%></td >
         <td><%= bookmarkLists.getBOOKMARK_NAME()%></td >
-        <td><%= bookmarkLists.getWIFI_NO() %> </td>
+        <td><a href="bookmarkShowDetail.jsp?mgrNo=<%=bookmarkLists.getMGR_NO()%>"><%= bookmarkLists.getWIFI_NO() %></a></td>
         <td><%= bookmarkLists.getCREATED_TIME()%> </td>
         <td align="center"><a href="bookmarkDelete.jsp?ID=<%=bookmarkLists.getID()%>">삭제</a></td>
     </tr>

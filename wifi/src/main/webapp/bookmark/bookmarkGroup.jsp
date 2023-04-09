@@ -56,7 +56,11 @@
     </tr>
     </thead>
     <tbody>
-    <% if (bookmarkGroupList != null) { %>
+    <% if (bookmarkGroupList.isEmpty()) { %>
+    <tr>
+        <td colspan="6" rowspan="3" align="center"><br>정보가 존재하지 않습니다.<br><br></td>
+    </tr>
+    <% } else { %>
     <% for(ResponseBookmarkList bookmarkGroupLists : bookmarkGroupList) { %>
     <tr>
         <td><%= bookmarkGroupLists.getID()%></td >
@@ -67,11 +71,8 @@
         <td align="center"> <a href="bookmarkGroupFix.jsp?id=<%= bookmarkGroupLists.getID() %>&name=<%= URLEncoder.encode(bookmarkGroupLists.getName(), "UTF-8") %>&num=<%= bookmarkGroupLists.getNUM() %>">수정</a>
                             <a href="bookmarkGroupDelete.jsp?id=<%= bookmarkGroupLists.getID() %>&name=<%= URLEncoder.encode(bookmarkGroupLists.getName(), "UTF-8") %>&num=<%= bookmarkGroupLists.getNUM() %>">삭제</a></td>
     </tr>
-    <% }%>
-    <% } else { %>
-    <!-- 북마크리스트가 없을 경우의 코드 -->
     <% } %>
-
+    <% }%>
     </tbody>
 </table>
 <tr>
