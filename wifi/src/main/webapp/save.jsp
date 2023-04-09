@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>jaehyun wifi</title>
-    <meta charset="UTF-8">\
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>

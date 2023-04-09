@@ -77,6 +77,11 @@
         <th><font color="white">작업일자</font></th>
     </tr>
     </thead>
+    <tbody>
+    <tr>
+        <td colspan="17" rowspan="3" align="center"><br>위치 정보를 입력한 후에 조회해 주세요.<br><br></td>
+    </tr>
+    </tbody>
 </table>
 <tr>
 </tr>
