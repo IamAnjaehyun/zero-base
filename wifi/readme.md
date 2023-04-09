@@ -30,9 +30,8 @@
 - 프론트엔드
     - HTML, CSS, Javascript
 - 데이터베이스
-    - SQLite
-    - ![img.png](erd.png)
-
+    - SQLite</br>
+![img.png](wifierd.png)
 ## 👾 프로젝트 설명 
 > 인증키는 git에 올리지 않아 clone 받아도 바로 사용 불가능. 인증키는 소중하니 따로 보관.</br>
   인증키를 내려받아 ApiExplorer에 28번째 줄 "인증키!!!" 부분에 넣기
