@@ -1,0 +1,23 @@
+spring:
+    #h2 들어갈 떄 쉽게 들어가기 위해
+    datasource:
+        url: jdbc:h2:mem:test
+        username: sa
+        password:
+        driverClassName: org.h2.Driver
+    #콘솔 브라우저에서 들어갈 수 있도록
+    h2:
+        console:
+            #초기데이터
+            enabled: true
+    jpa:
+        defer-datasource-initialization: true
+        database-platform: H2
+        hibernate:
+            #실행할 때 생성, 종료할 떄 삭제
+            ddl-auto: create-drop
+        open-in-view: false
+        properties:
+            hibernate:
+                format_sql: true
+                show_sql: true
