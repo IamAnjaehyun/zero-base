@@ -2,6 +2,7 @@ package com.example.account.controller;
 
 import com.example.account.domain.Account;
 import com.example.account.service.AccountService;
+import com.example.account.service.RedisTestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
