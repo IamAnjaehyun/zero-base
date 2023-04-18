@@ -2,40 +2,61 @@ package com.example.account.service;
 
 import com.example.account.domain.Account;
 import com.example.account.domain.AccountStatus;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.account.repository.AccountRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
 
-@SpringBootTest //실제와 동일하게 빈과 컨텍스트를 생성해서 테스트를 하게 해줌
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
+
+@ExtendWith(MockitoExtension.class)
 class AccountServiceTest {
-    @Autowired //필요한 의존 객체의 “타입"에 해당하는 빈을 찾아 주입한다.
+    @Mock //가짜로 만들어서 사용 (의존성 주입이랑 비슷)
+    private AccountRepository accountRepository;
+    @InjectMocks //가짜로 만든 accountRepository를 accountService에 inject
     private AccountService accountService;
 
-    @BeforeEach //테스트 전에 무조건 한번 실행
-    void init(){
-        accountService.createAccount();
-    }
-
     @Test
-    @DisplayName("Test 이름 변경 -> @DisplayName(\"바꾸고싶은 이름\")")
-    void testGetAccount(){
-        Account account = accountService.getAccount(1L);
+    @DisplayName("계좌 조회 성공")
+    void testXXX() {
+        //given
+        given(accountRepository.findById(anyLong()))
+                .willReturn(Optional.of(Account.builder()
+                        .accountStatus(AccountStatus.UNREGISTERED)
+                        .accountNumber("65789")
+                        .build()));
+        //when
+        Account account = accountService.getAccount(4555L);
 
-        //예상 (assertEquals("값", 메서드)
-        assertEquals("40001", account.getAccountNumber());
-        assertEquals(AccountStatus.IN_USE, account.getAccountStatus());
+        //then
+        assertEquals("65789",account.getAccountNumber());
+        assertEquals(AccountStatus.UNREGISTERED,account.getAccountStatus());
+
     }
 
-    @Test
-    void testGetAccount2(){
-        Account account = accountService.getAccount(2L);
-
-        //예상 (assertEquals("값", 메서드)
-        assertEquals("40000", account.getAccountNumber());
-        assertEquals(AccountStatus.IN_USE, account.getAccountStatus());
-    }
+//    @Test
+//    @DisplayName("Test 이름 변경 -> @DisplayName(\"바꾸고싶은 이름\")")
+//    void testGetAccount() {
+//        Account account = accountService.getAccount(1L);
+//
+//        //예상 (assertEquals("값", 메서드)
+//        assertEquals("40001", account.getAccountNumber());
+//        assertEquals(AccountStatus.IN_USE, account.getAccountStatus());
+//    }
+//
+//    @Test
+//    void testGetAccount2() {
+//        Account account = accountService.getAccount(2L);
+//
+//        //예상 (assertEquals("값", 메서드)
+//        assertEquals("40000", account.getAccountNumber());
+//        assertEquals(AccountStatus.IN_USE, account.getAccountStatus());
+//    }
 }
