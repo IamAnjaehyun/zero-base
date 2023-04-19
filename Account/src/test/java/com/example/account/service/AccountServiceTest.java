@@ -242,7 +242,7 @@ class AccountServiceTest {
 
     @Test
     @DisplayName("해지 계좌는 해지할 수 없다.")
-    void deleteAccount_alreadyUnregitsterded() {
+    void deleteAccount_alreadyUnregistered() {
         //given
         AccountUser pobi = AccountUser.builder()
                 .id(12L)
