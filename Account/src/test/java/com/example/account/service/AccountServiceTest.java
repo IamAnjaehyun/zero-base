@@ -176,7 +176,6 @@ class AccountServiceTest {
                 .willReturn(Optional.of(user));
         given(accountRepository.findByAccountNumber(anyString()))
                 .willReturn(Optional.empty());
-        ArgumentCaptor<Account> captor = ArgumentCaptor.forClass(Account.class);
 
         //when
         AccountException exception = assertThrows(AccountException.class,
@@ -204,7 +203,6 @@ class AccountServiceTest {
                         .accountUser(harry)
                         .balance(0L)
                         .accountNumber("1000000012").build()));
-        ArgumentCaptor<Account> captor = ArgumentCaptor.forClass(Account.class);
 
         //when
         AccountException exception = assertThrows(AccountException.class,
@@ -230,7 +228,6 @@ class AccountServiceTest {
                         //.balance(0L) 잔액 없으면 에러 나와야 함
                         .balance(1000L)
                         .accountNumber("1000000012").build()));
-        ArgumentCaptor<Account> captor = ArgumentCaptor.forClass(Account.class);
 
         //when
         AccountException exception = assertThrows(AccountException.class,
@@ -256,7 +253,6 @@ class AccountServiceTest {
                         .accountStatus(AccountStatus.UNREGISTERED)
                         .balance(1000L)
                         .accountNumber("1000000012").build()));
-        ArgumentCaptor<Account> captor = ArgumentCaptor.forClass(Account.class);
 
         //when
         AccountException exception = assertThrows(AccountException.class,
