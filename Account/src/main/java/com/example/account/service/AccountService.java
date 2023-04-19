@@ -69,12 +69,14 @@ public class AccountService {
         AccountUser accountUser = accountUserRepository.findById(userId)
                 .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND)); //accountUser 없으면 예외 발생
         Account account = accountRepository.findByAccountNumber(accountNumber)
-                .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND)); //accountUser 없으면 예외 발생
+                .orElseThrow(() -> new AccountException(ErrorCode.ACCOUNT_NOT_FOUND)); //accountUser 없으면 예외 발생
 
         validateDeleteAccount(accountUser, account);
 
         account.setAccountStatus(AccountStatus.UNREGISTERED);
         account.setUnRegisteredAt(LocalDateTime.now());
+
+        accountRepository.save(account); //없어도 괜찮지만 테스트 편의를 위함, 원래는 없는게 맞음
 
         return AccountDto.fromEntity(account);
     }
