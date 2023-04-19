@@ -13,9 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.example.account.type.AccountStatus.IN_USE;
+import static com.example.account.type.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor //Autowired안씀 final 있는애 생성자 만들어줌
@@ -31,7 +34,7 @@ public class AccountService {
     @Transactional
     public AccountDto createAccount(Long userId, Long initialBalance) {
         AccountUser accountUser = accountUserRepository.findById(userId)
-                .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND)); //accountUser 없으면 예외 발생
+                .orElseThrow(() -> new AccountException(USER_NOT_FOUND)); //accountUser 없으면 예외 발생
         validateCreateAccount(accountUser);
 
         String newAccountNumber = accountRepository.findFirstByOrderByIdDesc()
@@ -67,7 +70,7 @@ public class AccountService {
     @Transactional
     public AccountDto deleteAccount(Long userId, String accountNumber) {
         AccountUser accountUser = accountUserRepository.findById(userId)
-                .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND)); //accountUser 없으면 예외 발생
+                .orElseThrow(() -> new AccountException(USER_NOT_FOUND)); //accountUser 없으면 예외 발생
         Account account = accountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new AccountException(ErrorCode.ACCOUNT_NOT_FOUND)); //accountUser 없으면 예외 발생
 
@@ -83,13 +86,25 @@ public class AccountService {
 
     private void validateDeleteAccount(AccountUser accountUser, Account account) {
         if (!Objects.equals(accountUser.getId(), account.getAccountUser().getId())) {
-            throw new AccountException(ErrorCode.USER_ACCOUNT_UN_MATCH); //유저의 계좌가 아닌 계좌를 삭제할 떄
+            throw new AccountException(USER_ACCOUNT_UN_MATCH); //유저의 계좌가 아닌 계좌를 삭제할 떄
         }
         if (account.getAccountStatus() == AccountStatus.UNREGISTERED) { //이미 해지된 계좌일 때
-            throw new AccountException(ErrorCode.ACCOUNT_ALREADY_UNREGISTERED);
+            throw new AccountException(ACCOUNT_ALREADY_UNREGISTERED);
         }
         if (account.getBalance() > 0) { //잔액이 남아있을 떄
-            throw new AccountException(ErrorCode.BALANCE_NOT_EMPTY);
+            throw new AccountException(BALANCE_NOT_EMPTY);
         }
+    }
+
+    @Transactional
+    public List<AccountDto> getAccountsByUserId(Long userId) {
+        AccountUser accountUser = accountUserRepository.findById(userId)
+                .orElseThrow(() -> new AccountException(USER_NOT_FOUND));
+
+        List<Account> accounts = accountRepository.findByAccountUser(accountUser);
+
+        return accounts.stream()
+                .map(AccountDto::fromEntity) //Account를 fromEntity통해서 AccountDto로 바꿔줌
+                .collect(Collectors.toList());
     }
 }
