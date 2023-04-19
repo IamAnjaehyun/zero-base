@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import static com.example.account.type.AccountStatus.IN_USE;
 
@@ -50,7 +51,7 @@ public class AccountService {
     }
 
     private void validateCreateAccount(AccountUser accountUser) {
-        if(accountRepository.countByAccountUser(accountUser) >= 10){
+        if (accountRepository.countByAccountUser(accountUser) >= 10) {
             throw new AccountException(ErrorCode.MAX_ACCOUNT_PER_USER_10);
         }
     }
@@ -61,5 +62,32 @@ public class AccountService {
             throw new RuntimeException("Minus");
         }
         return accountRepository.findById(id).get();
+    }
+
+    @Transactional
+    public AccountDto deleteAccount(Long userId, String accountNumber) {
+        AccountUser accountUser = accountUserRepository.findById(userId)
+                .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND)); //accountUser 없으면 예외 발생
+        Account account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new AccountException(ErrorCode.USER_NOT_FOUND)); //accountUser 없으면 예외 발생
+
+        validateDeleteAccount(accountUser, account);
+
+        account.setAccountStatus(AccountStatus.UNREGISTERED);
+        account.setUnRegisteredAt(LocalDateTime.now());
+
+        return AccountDto.fromEntity(account);
+    }
+
+    private void validateDeleteAccount(AccountUser accountUser, Account account) {
+        if (!Objects.equals(accountUser.getId(), account.getAccountUser().getId())) {
+            throw new AccountException(ErrorCode.USER_ACCOUNT_UN_MATCH); //유저의 계좌가 아닌 계좌를 삭제할 떄
+        }
+        if (account.getAccountStatus() == AccountStatus.UNREGISTERED) { //이미 해지된 계좌일 때
+            throw new AccountException(ErrorCode.ACCOUNT_ALREADY_UNREGISTERED);
+        }
+        if (account.getBalance() > 0) { //잔액이 남아있을 떄
+            throw new AccountException(ErrorCode.BALANCE_NOT_EMPTY);
+        }
     }
 }

@@ -13,4 +13,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {//<활�
 
     //count만 하기때문에 list로 안해도 됨
     Integer countByAccountUser(AccountUser accountUser);
+
+    Optional<Account> findByAccountNumber(String AccountNumber);
 }
