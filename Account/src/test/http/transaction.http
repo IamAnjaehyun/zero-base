@@ -4,6 +4,16 @@ Content-Type: application/json
 
 {
   "userId": 1,
-  "accountNumber": "1000000010",
+  "accountNumber": "1000000002",
+  "amount": 30000
+}
+
+### cancel balance
+POST http://localhost:8080/transaction/cancel
+Content-Type: application/json
+
+{
+  "transactionId": "5a345aa56b26467b8fe53bce2a49ddea",
+  "accountNumber": "1000000002",
   "amount": 30000
 }
