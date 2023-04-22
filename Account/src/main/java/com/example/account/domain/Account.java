@@ -4,8 +4,6 @@ import com.example.account.exception.AccountException;
 import com.example.account.type.AccountStatus;
 import com.example.account.type.ErrorCode;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -18,11 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class) //CreatedDate / LastModifiedDate
-public class Account {
-    @Id
-    @GeneratedValue
-    Long id;
-
+public class Account extends BaseEntity {
     @ManyToOne
     private AccountUser accountUser; //그냥 유저라고 하면 db에 있는 User Table이랑 충돌이 날 수 있음
     private String accountNumber;
@@ -33,11 +27,6 @@ public class Account {
 
     private LocalDateTime registeredAt;
     private LocalDateTime unRegisteredAt;
-
-    @CreatedDate
-    private LocalDateTime createdAt; //생성일시
-    @LastModifiedDate
-    private LocalDateTime updatedAt; //수정일시
 
     public void useBalance(Long amount) {
         if (amount > balance) {
