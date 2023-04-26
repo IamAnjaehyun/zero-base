@@ -1,2 +1,4 @@
 
 .DS_Store
+
+weather/src/main/resources/application.properties
