@@ -11,4 +11,6 @@ import java.util.List;
 public interface DiaryRepository extends JpaRepository<Diary,Integer> {
     List<Diary> findAllByDate(LocalDate date);
     List<Diary> findAllByDateBetween(LocalDate startDate, LocalDate endDate);
+    //날짜에 맞는 가장 맨 첫 일기 수정
+    Diary getFirstByDate(LocalDate date);
 }
