@@ -6,5 +6,7 @@
 ## 🌝 [Part5](https://github.com/IamAnjaehyun/zero-base/tree/main/part05) 데이터 베이스 / 자바 프로젝트
 ## 🌚 [zb](https://github.com/IamAnjaehyun/zero-base/tree/main/zb) 미니과제 / 깜짝과제
 ## 🌝 [wifi](https://github.com/IamAnjaehyun/zero-base/tree/main/wifi) Mission 1
-## 🌚 [Account](https://github.com/IamAnjaehyun/zero-base/tree/main/Account) spring boot 계좌 기능 구현
-## 🌝 [weather](https://github.com/IamAnjaehyun/zero-base/tree/main/weather) spring boot 날씨 달력 구현
+## 🌚 [Account](https://github.com/IamAnjaehyun/zero-base/tree/main/Account) spring boot 계좌 시스템 프로젝트
+## 🌝 [weather](https://github.com/IamAnjaehyun/zero-base/tree/main/weather) spring boot 실전 날씨 일기 프로젝트
+## 🌚 [dividend](https://github.com/IamAnjaehyun/zero-base/tree/main/dividend) spring boot 실전 배당금 프로젝트
+
