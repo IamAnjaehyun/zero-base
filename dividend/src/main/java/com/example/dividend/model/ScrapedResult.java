@@ -12,7 +12,7 @@ public class ScrapedResult {
     private Company company;
     private List<Dividend> dividendEntities;
 
-    private ScrapedResult() {
+    public ScrapedResult() {
         this.dividendEntities = new ArrayList<>();
     }
 }
