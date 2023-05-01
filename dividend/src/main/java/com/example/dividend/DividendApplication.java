@@ -1,23 +1,17 @@
 package com.example.dividend;
 
-import com.example.dividend.model.Company;
-import com.example.dividend.scrapper.YahooFinanceScrapper;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.springframework.boot.SpringApplication;
+import com.example.dividend.scrapper.Scrapper;
+import com.example.dividend.scrapper.YahooFinanceScraper;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.IOException;
 
 @SpringBootApplication
 public class DividendApplication {
     public static void main(String[] args) {
 //        SpringApplication.run(DividendApplication.class, args);
-        YahooFinanceScrapper scrapper = new YahooFinanceScrapper();
-        var result = scrapper.scrap(Company.builder().ticker("O").build());
+
+        Scrapper scrapper = new YahooFinanceScraper(); //인터페이스 사용
+//        var result = scrapper.scrap(Company.builder().ticker("O").build());
+        var result = scrapper.scrapCompanyByTicker("MMM");
         System.out.println(result);
     }
 }
