@@ -1,13 +1,11 @@
 package com.example.dividend.persist.entity;
 
+import com.example.dividend.model.Company;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "COMPANY")
 @Getter
@@ -15,10 +13,15 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class CompanyEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String ticker;
 
     private String name;
+
+    public CompanyEntity(Company company){
+        this.ticker = company.getTicker();
+        this.name = company.getName();
+    }
 }
