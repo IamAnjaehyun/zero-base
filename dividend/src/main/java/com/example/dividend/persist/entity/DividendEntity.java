@@ -5,16 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity(name = "DIVIDEND")
 @Getter
 @ToString
 @NoArgsConstructor
+@Table( //companyId와 date를 기준으로 하는 uniqueKey 생성 **UniqueKey = 중복 데이터 저장 방지, 복합컬럼 지정 가능**
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {"companyId", "date"}
+                )
+        }
+)
 public class DividendEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +30,7 @@ public class DividendEntity {
 
     private String dividend;
 
-    public DividendEntity(Long companyId, Dividend dividend){
+    public DividendEntity(Long companyId, Dividend dividend) {
         this.companyId = companyId;
         this.date = dividend.getDate();
         this.dividend = dividend.getDividend();
