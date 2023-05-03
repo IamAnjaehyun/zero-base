@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/company")
 @AllArgsConstructor
@@ -20,7 +18,7 @@ public class CompanyController {
     private final CompanyService companyService;
     @GetMapping("/autocomplete")
     public ResponseEntity<?> autocomplete(@RequestParam String keyword) {
-        var result = this.companyService.autocomplete(keyword);
+        var result = this.companyService.getCompanyNamesByKeyword(keyword); //트라이에 따로 저장안해도됨
         return ResponseEntity.ok(result);
     }
 

@@ -10,6 +10,7 @@ import com.example.dividend.scraper.Scraper;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.Trie;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -34,7 +35,7 @@ public class CompanyService {
         return this.storeCompanyAndDividend(ticker);
     }
 
-    public Page<CompanyEntity> getAllCompany(Pageable pageable){
+    public Page<CompanyEntity> getAllCompany(Pageable pageable) {
         return this.companyRepository.findAll(pageable);
     }
 
@@ -58,18 +59,26 @@ public class CompanyService {
         return company;
     }
 
-    public void addAutocompleteKeyWord(String keyword){
+    public List<String> getCompanyNamesByKeyword(String keyword) {
+        Pageable limit = PageRequest.of(0,10);
+        Page<CompanyEntity> companyEntities = this.companyRepository.findByNameStartingWithIgnoreCase(keyword, limit);
+        return companyEntities.stream()
+                .map(e -> e.getName())
+                .collect(Collectors.toList());
+    }
+
+    public void addAutocompleteKeyWord(String keyword) {
         this.trie.put(keyword, null); //자동완성 기능만 구현할거라 null삽입
     }
 
-    public List<String> autocomplete(String keyword){ //trie에서 단어를 찾아오는 로직
-         return (List<String>) this.trie.prefixMap(keyword).keySet()
-                 .stream()
+    public List<String> autocomplete(String keyword) { //trie에서 단어를 찾아오는 로직
+        return (List<String>) this.trie.prefixMap(keyword).keySet()
+                .stream()
 //                 .limit(10) //가져오고싶은 개수 최대 제한 걸고싶을 때
-                 .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
-    public void deleteAutocompleteKeyword(String keyword){ //트라이에서 단어 삭제하는 로직
+    public void deleteAutocompleteKeyword(String keyword) { //트라이에서 단어 삭제하는 로직
         this.trie.remove(keyword);
     }
 }
