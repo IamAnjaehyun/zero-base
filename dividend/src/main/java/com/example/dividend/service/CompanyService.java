@@ -8,6 +8,8 @@ import com.example.dividend.persist.repository.CompanyRepository;
 import com.example.dividend.persist.repository.DividendRepository;
 import com.example.dividend.scraper.Scraper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -30,7 +32,12 @@ public class CompanyService {
         return this.storeCompanyAndDividend(ticker);
     }
 
-    private Company storeCompanyAndDividend(String ticker) { //클래스 밖에서 호출 불가능 save통해 호출함
+    public Page<CompanyEntity> getAllCompany(Pageable pageable){
+        return this.companyRepository.findAll(pageable);
+    }
+
+
+    private Company storeCompanyAndDividend(String ticker) { //클래스 밖에서 호출 불가능 save통해 호출가
         // ticker 를 기준으로 회사를 스크래핑
         Company company = this.yahooFinanceScraper.scrapCompanyByTicker(ticker);
         if (ObjectUtils.isEmpty(company)) {
