@@ -19,8 +19,9 @@ public class CompanyController {
 
     private final CompanyService companyService;
     @GetMapping("/autocomplete")
-    public ResponseEntity<?> autocomplete(@PathVariable String keyword) {
-        return null;
+    public ResponseEntity<?> autocomplete(@RequestParam String keyword) {
+        var result = this.companyService.autocomplete(keyword);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping
@@ -42,7 +43,7 @@ public class CompanyController {
         }
 
         Company company = this.companyService.save(ticker);
-
+        this.companyService.addAutocompleteKeyWord(company.getName()); //회사를 저장할 때 마다 tire명이 저장됨
         return ResponseEntity.ok(company);
     }
 
