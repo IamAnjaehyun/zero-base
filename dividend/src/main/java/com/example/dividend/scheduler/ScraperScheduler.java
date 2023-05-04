@@ -2,6 +2,7 @@ package com.example.dividend.scheduler;
 
 import com.example.dividend.model.Company;
 import com.example.dividend.model.ScrapedResult;
+import com.example.dividend.model.constants.CacheKey;
 import com.example.dividend.persist.entity.CompanyEntity;
 import com.example.dividend.persist.entity.DividendEntity;
 import com.example.dividend.persist.repository.CompanyRepository;
@@ -9,6 +10,8 @@ import com.example.dividend.persist.repository.DividendRepository;
 import com.example.dividend.scraper.Scraper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +21,7 @@ import java.util.List;
 //자동화 이유 -> 만약 새로운 배당 정보가 생겼을 때 새로 갱신
 @Component
 @AllArgsConstructor
+@EnableCaching
 public class ScraperScheduler {
 //    @Scheduled(cron = "0/5 * * * * *") //5초마다 시간 찍는 testScheduler
 //    public void test() {
@@ -40,6 +44,7 @@ public class ScraperScheduler {
 //    }
 
     //일정 주기마다 반복 시분일월요일 순서
+    @CacheEvict(value = CacheKey.KEY_FINANCE, allEntries = true) //레디스 캐쉬에 있는 finance 값 모두 지운다는 뜻 (스케쥴링 돌 때 마다 캐시에 있는 값 다 지워짐!)
     @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling() {
         log.info("scraping scheduler is started");
