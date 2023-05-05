@@ -30,7 +30,7 @@ public class TokenProvider {
      * @param roles
      * @return
      */
-    private String generateToken(String username, List<String> roles) { //토큰 생성
+    public String generateToken(String username, List<String> roles) { //토큰 생성
         Claims claims = Jwts.claims().setSubject(username);
         claims.put(KEY_ROLES, roles);
 
