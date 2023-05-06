@@ -44,7 +44,8 @@ public class ScraperScheduler {
 //    }
 
     //일정 주기마다 반복 시분일월요일 순서
-    @CacheEvict(value = CacheKey.KEY_FINANCE, allEntries = true) //레디스 캐쉬에 있는 finance 값 모두 지운다는 뜻 (스케쥴링 돌 때 마다 캐시에 있는 값 다 지워짐!)
+    @CacheEvict(value = CacheKey.KEY_FINANCE, allEntries = true)
+    //레디스 캐쉬에 있는 finance 값 모두 지운다는 뜻 (스케쥴링 돌 때 마다 캐시에 있는 값 다 지워짐!)
     @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling() {
         log.info("scraping scheduler is started");
@@ -65,6 +66,7 @@ public class ScraperScheduler {
                         boolean exists = this.dividendRepository.existsByCompanyIdAndDate(e.getCompanyId(), e.getDate());
                         if (!exists) {
                             this.dividendRepository.save(e);
+                            log.info("insert new dividend -> " + e.toString());
                         }
                     });
             //연속적으로 스크래핑 대상 사이트 서버에 요청을 날리지 않도록 일시 정지
