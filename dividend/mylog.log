@@ -172,3 +172,11 @@ ERROR in ch.qos.logback.core.joran.spi.Interpreter@27:52 - no applicable action 
 23:42:30.685 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 23:42:31.61 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/h2-console/**'] with []
 23:42:31.102 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@317fa5dd, org.springframework.security.web.context.SecurityContextPersistenceFilter@477e5b69, org.springframework.security.web.header.HeaderWriterFilter@6792f2c6, org.springframework.security.web.authentication.logout.LogoutFilter@40239b34, com.example.dividend.sercurity.JwtAuthenticationFilter@214e3185, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@74a991cf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@79f3f34c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@477906cf, org.springframework.security.web.session.SessionManagementFilter@37f7ce20, org.springframework.security.web.access.ExceptionTranslationFilter@294a12b5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@36ce0bc2]
+23:42:31.998 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+23:42:32.19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+23:42:32.43 [main] INFO  c.e.dividend.DividendApplication - Started DividendApplication in 7.007 seconds (JVM running for 8.789)
+23:43:52.837 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23:43:52.841 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+23:43:52.844 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+23:43:57.548 [http-nio-8080-exec-3] INFO  c.e.dividend.web.AuthController - user login -> grace
+23:44:10.830 [http-nio-8080-exec-4] INFO  c.e.d.s.JwtAuthenticationFilter - [grace] -> /company
