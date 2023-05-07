@@ -75,7 +75,7 @@ public class CompanyService {
     public List<String> autocomplete(String keyword) { //trie에서 단어를 찾아오는 로직
         return (List<String>) this.trie.prefixMap(keyword).keySet()
                 .stream()
-//                 .limit(10) //가져오고싶은 개수 최대 제한 걸고싶을 때
+                .limit(10) //가져오고싶은 개수 최대 제한 걸고싶을 때 (10개 제한)
                 .collect(Collectors.toList());
     }
 
@@ -87,7 +87,7 @@ public class CompanyService {
         var company = this.companyRepository.findByTicker(ticker)
                 .orElseThrow(() -> new NoCompanyException());
 
-        this.dividendRepository.deleteAllByCompanyId(company.getId());;
+        this.dividendRepository.deleteAllByCompanyId(company.getId());
         this.companyRepository.delete(company);
         //트라이에서도 지워져야함
         this.deleteAutocompleteKeyword(company.getName());

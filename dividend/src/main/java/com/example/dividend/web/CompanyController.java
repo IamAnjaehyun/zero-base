@@ -22,7 +22,8 @@ public class CompanyController {
     private final CacheManager redisCacheManager;
     @GetMapping("/autocomplete")
     public ResponseEntity<?> autocomplete(@RequestParam String keyword) {
-        var result = this.companyService.getCompanyNamesByKeyword(keyword); //트라이에 따로 저장안해도됨
+        var result = this.companyService.getCompanyNamesByKeyword(keyword); //트라이에 따로 저장안해도됨 but db조회
+//        var result = this.companyService.autocomplete(keyword);
         return ResponseEntity.ok(result);
     }
 
