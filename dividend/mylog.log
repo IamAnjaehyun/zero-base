@@ -188,3 +188,8 @@
 17:25:27.344 [http-nio-8080-exec-4] INFO  c.e.d.s.JwtAuthenticationFilter - [grace] -> /company
 17:25:34.985 [http-nio-8080-exec-5] INFO  c.e.d.s.JwtAuthenticationFilter - [grace] -> /company/autocomplete
 17:25:42.396 [http-nio-8080-exec-6] INFO  c.e.d.s.JwtAuthenticationFilter - [grace] -> /company/autocomplete
+17:58:05.262 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m9s666ms).
+18:02:45.78 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m39s819ms).
+18:08:38.214 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m23s128ms).
+18:26:11.641 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m33s427ms).
+18:48:12.891 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m31s110ms).
