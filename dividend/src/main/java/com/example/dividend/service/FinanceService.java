@@ -47,6 +47,7 @@ public class FinanceService {
 //        }
 
         //위에 코드랑 결과 같음
+        //3. 결과 조합 후 반환
         List<Dividend> dividends = dividendEntities.stream()
                 .map(e -> new Dividend(e.getDate(), e.getDividend()))
                 .collect(Collectors.toList());

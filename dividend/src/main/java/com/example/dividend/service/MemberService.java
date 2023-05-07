@@ -1,6 +1,8 @@
 package com.example.dividend.service;
 
 import com.example.dividend.exception.impl.AlreadyExistUserException;
+import com.example.dividend.exception.impl.NotCorrectPasswordException;
+import com.example.dividend.exception.impl.NotExistUserException;
 import com.example.dividend.model.Auth;
 import com.example.dividend.persist.entity.MemberEntity;
 import com.example.dividend.persist.repository.MemberRepository;
@@ -40,10 +42,10 @@ public class MemberService implements UserDetailsService {
 
     public MemberEntity authenticate(Auth.SignIn member) {
         var user = this.memberRepository.findByUsername(member.getUsername()) //멤버 가져와서
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 ID 입니다."));
+                .orElseThrow(() -> new NotExistUserException());
 
         if (!this.passwordEncoder.matches(member.getPassword(), user.getPassword())) {//멤버의 패스워드와 저장된 패스워드 일치하는지 검증
-            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+            throw new NotCorrectPasswordException();
         }
 
         return user;
