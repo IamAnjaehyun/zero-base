@@ -23,7 +23,7 @@ public class YahooFinanceScraper implements Scraper {
     private static final String SUMMARY_URL = "https://finance.yahoo.com/quote/%s?p=%s";
 
 
-    private static final long START_TIME = 85600; //60*60*24
+    private static final long START_TIME = 86400; //60*60*24
 
     @Override
     public ScrapedResult scrap(Company company) {
@@ -67,7 +67,7 @@ public class YahooFinanceScraper implements Scraper {
             }
             scarpResult.setDividends(dividends);
         } catch (IOException e) {
-            //TODO
+            //TODO error handling
             throw new RuntimeException(e);
         }
         return scarpResult;
