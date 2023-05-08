@@ -12,7 +12,7 @@ class LoanReviewController (
     private val loanReviewServiceImpl: LoanReviewServiceImpl
         ){
 
-    @GetMapping("review/{userkey}") //유저 키값을 받아와서
+    @GetMapping("review/{userKey}") //유저 키값을 받아와서
     fun getReviewData(
         @PathVariable userKey:String
     ):ResponseEntity<LoanReviewDto.LoanReviewResponseDto>{
