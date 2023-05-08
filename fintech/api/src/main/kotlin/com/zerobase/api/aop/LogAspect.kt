@@ -17,7 +17,7 @@ class LogAspect {
     private fun isApi(){}
 
     @Around("isApi()")
-    fun loggingAspect(joinPoint: ProceedingJoinPoint): Any{
+    fun loggingAspect(joinPoint: ProceedingJoinPoint): Any {
         val stopWatch = StopWatch()
         stopWatch.start()
 

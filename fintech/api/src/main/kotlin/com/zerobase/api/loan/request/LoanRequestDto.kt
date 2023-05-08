@@ -12,7 +12,6 @@ class LoanRequestDto {
             )
     }
 
-
     data class LoanRequestResponseDto(
         val userKey: String
     )
