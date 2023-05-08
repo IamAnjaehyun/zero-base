@@ -4,7 +4,7 @@ import com.zerobase.domain.domain.UserInfo
 
 interface LoanRequestService {
     fun loanRequestMain(
-        lonaRequestInputDto: LoanRequestDto.LoanRequestInputDto
+        loanRequestInputDto: LoanRequestDto.LoanRequestInputDto
     ): LoanRequestDto.LoanRequestResponseDto
 
     fun saveUserInfo(
