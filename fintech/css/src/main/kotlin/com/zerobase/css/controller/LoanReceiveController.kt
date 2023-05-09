@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+
+//hostname/css
 @RestController
 @RequestMapping("/css/api/v1")
 class LoanReceiveController(
