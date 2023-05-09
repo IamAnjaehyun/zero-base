@@ -11,10 +11,11 @@ import org.springframework.util.StopWatch
 @Aspect
 @Component
 class LogAspect {
+    val logger = KotlinLogging.logger { }
 
-    val logger = KotlinLogging.logger{}
-    @Pointcut("within(com.zerobase.api..*)") //하위에 있는 모든 패키지
-    private fun isApi(){}
+    @Pointcut("within(com.zerobase.api..*)")
+    private fun isApi() {
+    }
 
     @Around("isApi()")
     fun loggingAspect(joinPoint: ProceedingJoinPoint): Any {
