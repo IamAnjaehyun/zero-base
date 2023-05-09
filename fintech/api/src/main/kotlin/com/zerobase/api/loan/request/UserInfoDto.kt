@@ -14,7 +14,5 @@ class UserInfoDto(
             userKey, userRegistrationNumber, userName, userIncomeAmount
         )
 
-    fun toLoanRequestKafkaDto() = LoanRequestDto(
-        userKey, userName, userIncomeAmount, userRegistrationNumber
-    )
+    fun toLoanRequestKafkaDto() = LoanRequestDto(userKey, userName, userIncomeAmount, userRegistrationNumber)
 }

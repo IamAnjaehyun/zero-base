@@ -38,7 +38,7 @@ class KafkaConfig {
         val configurationProperties = HashMap<String, Any>()
         configurationProperties[ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapServer
         configurationProperties[ConsumerConfig.GROUP_ID_CONFIG] = "fintech"
-        configurationProperties[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
+        configurationProperties[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest" //가장 먼저 쌓인 애들 가져옴
         configurationProperties[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
         configurationProperties[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
 

@@ -14,6 +14,7 @@ class LoanRequestServiceImpl(
     private val encryptComponent: EncryptComponent,
     private val loanRequestSender: LoanRequestSender
 ) : LoanRequestService {
+
     override fun loanRequestMain(
         loanRequestInputDto: LoanRequestDto.LoanRequestInputDto
     ): LoanRequestDto.LoanRequestResponseDto {
