@@ -21,8 +21,7 @@ class KafkaConfig {
         const val bootstrapServer = "localhost:9092"
     }
 
-    //직렬화
-    @Bean
+    @Bean //직렬화
     fun producerFactory(): ProducerFactory<String, String> {
         val configurationProperties = HashMap<String, Any>()
         configurationProperties[ProducerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapServer
@@ -32,13 +31,12 @@ class KafkaConfig {
         return DefaultKafkaProducerFactory(configurationProperties)
     }
 
-    //역직렬화
-    @Bean
+    @Bean //역직렬화
     fun consumerFactory(): ConsumerFactory<String, String> {
         val configurationProperties = HashMap<String, Any>()
         configurationProperties[ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG] = bootstrapServer
         configurationProperties[ConsumerConfig.GROUP_ID_CONFIG] = "fintech"
-        configurationProperties[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest" //가장 먼저 쌓인 애들 가져옴
+        configurationProperties[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
         configurationProperties[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
         configurationProperties[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
 

@@ -12,18 +12,18 @@ import java.time.Duration
 class LoanRequestService(
     private val loanReviewRepository: LoanReviewRepository
 ) {
-    companion object{
-        const val cssUrl = "http://localhost:9091/css/api/v1/request" //나중에 많아지면 모듈로 따로 빼는게 좋음
+    companion object {
+        const val cssUrl = "http://localhost:8081/css/api/v1/request" //나중에 많아지면 모듈로 따로 빼는게 좋음
     }
+
+    //대출 심사 받을 수 있는 서비스
     fun loanRequest(loanRequestDto: LoanRequestDto) {
-        //TODO : CB Component 로 요청 보내기 -> 응답 값을 DB에 저장하기
-        val reviewResult = loanRequestToCb(loanRequestDto) //심사결과
+        val reviewResult = loanRequestToCb(loanRequestDto)
 
         saveLoanReviewData(reviewResult.toLoanReviewEntity())
     }
 
-    fun loanRequestToCb(loanRequestDto: LoanRequestDto): ReviewResponseDto{
-        //TODO
+    private fun loanRequestToCb(loanRequestDto: LoanRequestDto): ReviewResponseDto {
         val restTemplate = RestTemplateBuilder()
             .setConnectTimeout(Duration.ofMillis(1000))
             .setReadTimeout(Duration.ofMillis(1000))
