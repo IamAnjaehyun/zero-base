@@ -1,10 +1,9 @@
-plugins {
-}
+plugins {}
 
 version = "0.0.1"
 
-
 dependencies {
+    // spring-boot-starter-web
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.6")
@@ -14,7 +13,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":kafka"))
 
-    //test
+    // test
     testImplementation("io.mockk:mockk:1.12.0")
     runtimeOnly("com.h2database:h2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.+")
@@ -25,6 +24,6 @@ dependencies {
     // Logging
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
 
-    //Redis
+    // Redis
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
 }

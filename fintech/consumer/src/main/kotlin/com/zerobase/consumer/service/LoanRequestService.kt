@@ -13,7 +13,7 @@ class LoanRequestService(
     private val loanReviewRepository: LoanReviewRepository
 ) {
     companion object {
-        const val cssUrl = "http://localhost:8081/css/api/v1/request" //나중에 많아지면 모듈로 따로 빼는게 좋음
+        const val nginxUrl = "http://nginx:8085/css/api/v1/request" //나중에 많아지면 모듈로 따로 빼는게 좋음
     }
 
     //대출 심사 받을 수 있는 서비스
@@ -29,7 +29,7 @@ class LoanRequestService(
             .setReadTimeout(Duration.ofMillis(1000))
             .build()
 
-        return restTemplate.postForEntity(cssUrl, loanRequestDto, ReviewResponseDto::class.java).body!!
+        return restTemplate.postForEntity(nginxUrl, loanRequestDto, ReviewResponseDto::class.java).body!!
     }
 
     private fun saveLoanReviewData(loanReview: LoanReview) = loanReviewRepository.save(loanReview)

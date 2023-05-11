@@ -2,12 +2,12 @@ package com.zerobase.consumer.dto
 
 import com.zerobase.domain.domain.LoanReview
 
-class ReviewResponseDto(
+data class ReviewResponseDto(
     val userKey: String,
     val interest: Double,
     val limitAmount: Long
-){
-    fun toLoanReviewEntity(): LoanReview=
+) {
+    fun toLoanReviewEntity(): LoanReview =
         LoanReview(
             userKey = userKey,
             loanInterest = interest,
