@@ -1,5 +1,6 @@
 package com.zerobase.api.loan.review
 
+import io.swagger.annotations.ApiOperation
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -12,6 +13,7 @@ class LoanReviewController (
     private val loanReviewServiceImpl: LoanReviewServiceImpl
         ){
 
+    @ApiOperation(value = "대출 심사 요청", notes ="대출 심사 요청을 하는 API")
     @GetMapping("review/{userKey}") //유저 키값을 받아와서
     fun getReviewData(
         @PathVariable userKey:String
