@@ -5,4 +5,5 @@ docker run -d \
 -e MYSQL_PASSWORD="fintech" \
 -e MYSQL_DATABASE="fintech" \
 -p 3306:3306 \
-mysql:latest
+--network docker_fintech \
+-d mysql:latest
