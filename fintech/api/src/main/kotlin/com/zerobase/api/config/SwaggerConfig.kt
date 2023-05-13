@@ -2,6 +2,7 @@ package com.zerobase.api.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.web.bind.annotation.RestController
 import springfox.documentation.builders.ApiInfoBuilder
 import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
@@ -19,9 +20,11 @@ class SwaggerConfig {
             .useDefaultResponseMessages(false)
             .select()
             .apis(RequestHandlerSelectors.basePackage(""))
+            .apis(RequestHandlerSelectors.withClassAnnotation(RestController::class.java)) //basic error controller 삭제
             .paths(PathSelectors.any())
             .build()
             .apiInfo(apiInfo())
+
     }
 
     private fun apiInfo():ApiInfo{

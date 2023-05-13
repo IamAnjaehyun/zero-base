@@ -1,6 +1,7 @@
 package com.zerobase.api.loan.request
 
 import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/fintech/api/v1")
+@Api(description = "대출 결과를 요청하는 컨트롤러")
 class LoanRequestController(
     private val loanRequestServiceImpl: LoanRequestServiceImpl
 ) {
