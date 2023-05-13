@@ -35,14 +35,25 @@
 ✅ 대출 심사 요청을 보내면 결과를 받는 프로젝트이다.
 
 ## 👾 API 설명
-✅ http://localhost:80/swagger-ui/index.html
+✅ SWAGGER
+![image](https://github.com/IamAnjaehyun/zero-base/assets/101981639/8a37caf0-c164-49ed-9845-060c4665d215)
+
 - 대출 심사 요청 API
+![image](https://github.com/IamAnjaehyun/zero-base/assets/101981639/f66782de-e925-4533-944f-475b15b93b7d)
+
 - 대출 결과 요청 API
+![image](https://github.com/IamAnjaehyun/zero-base/assets/101981639/60b3c973-ea8f-44e0-8642-43f888f62091)
+
+✅ DOCKER
+<img width="1172" alt="image" src="https://github.com/IamAnjaehyun/zero-base/assets/101981639/3acb02da-6bbf-4dc3-8e82-a80d034cbc31">
+
+✅ ERD
+<img width="491" alt="image" src="https://github.com/IamAnjaehyun/zero-base/assets/101981639/3831e807-c642-41cb-8d3a-0bda023ecb26">
+
 
 ## 🌝 느낀점
-- 갑분 코틀린이 나와서 이해가 가지 않는 강의였다.. 또한 과제와 강의는 거의 연관이 없는 것 같았다,</br>
-  하지만 docker를 사용하여 여러가지 처음 접하는 기술들을 많이 사용해보아서 그건 좋았다.</br>
-  docker라는걸 이름만 들어봤고 사용해보지는 않았지만 docker를 통해 kafka, mysql, redis 등등</br>
-  좋은 경험을 했으며 비록 코틀린을 사용하긴 했지만 멀티모듈을 사용하여 프로젝트를 진행하는것도 신선했다.</br>
-  하지만.. 너무어렵고.. docker때문에 시간을 다 잡아먹어 결국 제대로 된 과제는 손도 못대고..</br>
-  docker상에 띄워진 mysql과 api모듈 연동만 하다 3일을 잡아먹어서 도커공부는 확실히 된 듯.. 🤪</br>
+- docker에 등록한 mysql-fintech database가 springboot 와 연동이 되지 않아 프로젝트 진행 내내</br>
+  이 에러때문에 고생했는데, 호스트의 /etc/hosts 파일에서 fintech-mysql 과 관련된 항목 중에 </br>
+  127.0.0.1 fintech-mysql 이 부분이 없어서 그랬던 것.. 코틀린이라는 새로운 벽을 마주하여 힘들었지만 </br>
+  오랬동안 에러와 싸우다 내가 이겼을 때의 쾌감은 정말 끝내준다는걸 다시한 번 알게해준 프로젝트.. 😝
+
