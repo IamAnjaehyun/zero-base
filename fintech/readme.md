@@ -24,30 +24,29 @@
 - Redis
 - Docker
 
-
 ## 💻 기술 스택
 - 백엔드
     - Kotlin, SpringBoot
 - 데이터베이스
-    - mysql</br>
+    - mysql, h2database</br>
 
 ## 👾 프로젝트 설명
 ✅ 대출 심사 요청을 보내면 결과를 받는 프로젝트이다.
 
 ## 👾 API 설명
-✅ SWAGGER
+✅ SWAGGER </br>
 ![image](https://github.com/IamAnjaehyun/zero-base/assets/101981639/8a37caf0-c164-49ed-9845-060c4665d215)
 
-- 대출 심사 요청 API
+- 대출 심사 요청 API </br>
 ![image](https://github.com/IamAnjaehyun/zero-base/assets/101981639/f66782de-e925-4533-944f-475b15b93b7d)
 
-- 대출 결과 요청 API
+- 대출 결과 요청 API </br>
 ![image](https://github.com/IamAnjaehyun/zero-base/assets/101981639/60b3c973-ea8f-44e0-8642-43f888f62091)
 
-✅ DOCKER
+✅ DOCKER </br>
 <img width="1172" alt="image" src="https://github.com/IamAnjaehyun/zero-base/assets/101981639/3acb02da-6bbf-4dc3-8e82-a80d034cbc31">
 
-✅ ERD
+✅ ERD </br>
 <img width="491" alt="image" src="https://github.com/IamAnjaehyun/zero-base/assets/101981639/3831e807-c642-41cb-8d3a-0bda023ecb26">
 
 
