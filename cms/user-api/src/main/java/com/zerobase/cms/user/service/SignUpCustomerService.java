@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 
+import static com.zerobase.cms.user.exception.ErrorCode.*;
+
 @Service
 @RequiredArgsConstructor
 public class SignUpCustomerService {
@@ -29,6 +31,20 @@ public class SignUpCustomerService {
     }
 
     @Transactional
+    public void verifyEmail(String email, String code){
+        Customer customer = customerRepository.findByEmail(email)
+                .orElseThrow(()-> new CustomException(NOT_FOUND_USER));
+        if(customer.isVerify()){
+            throw new CustomException(ALREADY_VERIFY);
+        }else if(!customer.getVerificationCode().equals(code)){
+            throw new CustomException(WRONG_VERIFICATION);
+        }else if(customer.getVerifyExpiredAt().isBefore(LocalDateTime.now())){
+            throw new CustomException(EXPIRE_CODE);
+        }
+        customer.setVerify(true);
+    }
+
+    @Transactional
     public LocalDateTime changeCustomerValidateEmail(Long customerId, String verificationCode){
         Optional<Customer> customerOptional =customerRepository.findById(customerId);
 
@@ -39,6 +55,6 @@ public class SignUpCustomerService {
 
             return customer.getVerifyExpiredAt();
         }
-        throw new CustomException(ErrorCode.NOT_FOUND_USER);
+        throw new CustomException(NOT_FOUND_USER);
     }
 }
