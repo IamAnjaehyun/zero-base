@@ -1,4 +1,6 @@
 package com.zerobase.domain.domain.common;
 
-public class UserType {
+public enum UserType {
+    CUSTOMER,
+    SELLER;
 }
